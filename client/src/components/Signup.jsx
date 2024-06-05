@@ -1,5 +1,5 @@
-import axios from "axios";
-import { useState } from "react";
+import axios from 'axios';
+import { useState } from 'react';
 
 export function Signup() {
   const [errors, setErrors] = useState([]);
@@ -7,13 +7,16 @@ export function Signup() {
   const handleSubmit = (event) => {
     event.preventDefault();
     setErrors([]);
-    const params = new FormData(event.target);
+    const formData = new FormData(event.target);
+    const params = Object.fromEntries(formData.entries());
+
+    console.log(params, 'form data');
     axios
-      .post("http://localhost:3000/users.json", params)
+      .post('http://localhost:8083/api/users', params)
       .then((response) => {
         console.log(response.data);
         event.target.reset();
-        window.location.href = "/"; // Change this to hide a modal, redirect to a specific page, etc.
+        window.location.href = 'http://localhost:3000'; // Change this to hide a modal, redirect to a specific page, etc.
       })
       .catch((error) => {
         console.log(error.response.data.errors);
@@ -25,9 +28,9 @@ export function Signup() {
     <div id="signup">
       <h1>Signup</h1>
       <ul>
-        {errors.map((error) => (
+        {/* {errors.map((error) => (
           <li key={error}>{error}</li>
-        ))}
+        ))} */}
       </ul>
       <form onSubmit={handleSubmit}>
         <div>
@@ -39,9 +42,10 @@ export function Signup() {
         <div>
           Password: <input name="password" type="password" />
         </div>
-        <div>
-          Password confirmation: <input name="password_confirmation" type="password" />
-        </div>
+        {/* <div>
+          Password confirmation:{' '}
+          <input name="password_confirmation" type="password" />
+        </div> */}
         <button type="submit">Signup</button>
       </form>
     </div>
