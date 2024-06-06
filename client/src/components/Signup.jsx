@@ -19,8 +19,13 @@ export function Signup() {
         window.location.href = 'http://localhost:3000'; // Change this to hide a modal, redirect to a specific page, etc.
       })
       .catch((error) => {
-        console.log(error.response.data.errors);
-        setErrors(error.response.data.errors);
+        if (error.response && error.response.data.errors) {
+          console.log(error.response.data.errors);
+          setErrors(error.response.data.errors);
+        } else {
+          console.log(error);
+          setErrors(['An error occurred. Please try again.']);
+        }
       });
   };
 
