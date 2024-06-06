@@ -2,10 +2,10 @@ import './App.css';
 import 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { Header } from './components/Header';
-import { Content } from './components/Content';
 import { Footer } from './components/Footer';
 import { Signup } from './components/Signup';
 import { Login } from './components/Login';
+import { HomePage } from './components/HomePage';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 
 function App() {
@@ -34,8 +34,8 @@ function App() {
   return (
     <div>
       <Header authenticated={authenticated} onLogout={handleLogout} />
-      <Content />
       <Routes>
+        <Route path="/" element={<HomePage />} />
         {!authenticated && (
           <Route
             path="/signup"
