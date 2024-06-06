@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import courage from '../images/courage.png';
 
 function calculateAge(birthdate) {
   const today = new Date();
@@ -37,7 +36,7 @@ function PetCards() {
           <div className="col-md-4" key={pet.id}>
             <div className="card">
               <img
-                src={'../images/courage.png'}
+                src={'/images/' + pet.profile_picture}
                 className="card-img-top"
                 alt={pet.name}
               />
