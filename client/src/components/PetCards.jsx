@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'react-router-dom';
 
 function calculateAge(birthdate) {
   const today = new Date();
@@ -50,6 +51,9 @@ function PetCards() {
                   <br />
                   Age: {calculateAge(pet.birthdate)} years
                 </p>
+                <Link to={`/pets/${pet.id}`} className="btn btn-info">
+                  View Details
+                </Link>
               </div>
             </div>
           </div>
