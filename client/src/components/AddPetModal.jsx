@@ -18,7 +18,6 @@ function AddPetModal({ show, handleClose }) {
       .post('http://localhost:8083/api/pets/uploadFileAPI', data)
       .then((res) => {
         console.log(res.statusText);
-        console.log(res.data.fileName, 'FILE NAMEEEE');
 
         // Update formData with the file name
         setFormData({
@@ -35,7 +34,7 @@ function AddPetModal({ show, handleClose }) {
     e.preventDefault();
 
     const params = {
-      user_id: 1, // Hardcoded user ID, replace with logic to get user ID from signed-in user
+      user_id: localStorage.getItem('user'), // Hardcoded user ID, replace with logic to get user ID from signed-in user
       name: formData.name,
       breed: formData.breed,
       birthdate: formData.birthdate,

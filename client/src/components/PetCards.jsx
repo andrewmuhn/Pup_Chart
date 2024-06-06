@@ -17,7 +17,8 @@ function calculateAge(birthdate) {
 
 function PetCards() {
   const [pets, setPets] = useState([]);
-  const user = 1; // Hardcoded user ID, replace with logic to get user ID from signed-in user
+  const user = localStorage.getItem('user');
+  console.log(user, 'USER'); // Hardcoded user ID, replace with logic to get user ID from signed-in user
 
   useEffect(() => {
     axios
