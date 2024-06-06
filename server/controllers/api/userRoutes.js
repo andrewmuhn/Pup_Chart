@@ -14,7 +14,9 @@ router.post('/', (req, res) => {
   // Hash the password before storing it
   bcrypt.hash(password, 10, (err, hashedPassword) => {
     if (err) {
-      return res.status(500).json({ errors: ['An error occurred. Please try again.'] });
+      return res
+        .status(500)
+        .json({ errors: ['An error occurred. Please try again.'] });
     }
 
     pool.query(
@@ -26,7 +28,7 @@ router.post('/', (req, res) => {
         }
         res
           .status(201)
-          .send(`User added with ID: ${results.rows[0].user_id}`);
+          .send(`User added with ID: ${results.rows[0].id}`);
       },
     );
   });
@@ -35,30 +37,41 @@ router.post('/', (req, res) => {
 router.post('/sessions', (req, res) => {
   const { email, password } = req.body;
 
-  pool.query('SELECT * FROM users WHERE email = $1',
+  pool.query(
+    'SELECT * FROM users WHERE email = $1',
     [email],
     (error, results) => {
       if (error) {
-        return res.status(500).json({ errors: ['An error occurred. Please try again.'] });
+        return res
+          .status(500)
+          .json({ errors: ['An error occurred. Please try again.'] });
       }
       if (results.rows.length === 0) {
-        return res.status(401).json({ errors: ['Invalid email or password'] });
+        return res
+          .status(401)
+          .json({ errors: ['Invalid email or password'] });
       }
 
       const user = results.rows[0];
 
       bcrypt.compare(password, user.password, (error, isMatch) => {
         if (error) {
-          return res.status(500).json({ errors: ['An error occurred. Please try again.'] });
+          return res.status(500).json({
+            errors: ['An error occurred. Please try again.'],
+          });
         }
         if (isMatch) {
-          const token = jwt.sign({ user_id: user.user_id }, 'secret', { expiresIn: '1h' });
-          res.send({ jwt: token });
+          const token = jwt.sign({ user_id: user.id }, 'secret', {
+            expiresIn: '1h',
+          });
+          res.send({ jwt: token, user: user.id });
         } else {
-          res.status(401).json({ errors: ['Invalid email or password'] });
+          res
+            .status(401)
+            .json({ errors: ['Invalid email or password'] });
         }
       });
-    }
+    },
   );
 });
 
