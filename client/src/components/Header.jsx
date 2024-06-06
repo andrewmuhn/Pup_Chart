@@ -2,10 +2,7 @@ import { Link } from 'react-router-dom';
 
 export function Header({ authenticated, onLogout }) {
   return (
-    <header
-      style={{ fontFamily: 'Georgia' }}
-      className="bg-light p-3 d-flex justify-content-between align-items-center"
-    >
+    <header className="bg-light p-3 d-flex justify-content-between align-items-center">
       <img
         src={'/images/logo.png'}
         className="App-logo d-inline-block"

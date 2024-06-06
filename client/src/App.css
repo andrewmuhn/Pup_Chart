@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
 .App {
   text-align: center;
 }
@@ -5,6 +6,10 @@
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+body {
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 @media (prefers-reduced-motion: no-preference) {
