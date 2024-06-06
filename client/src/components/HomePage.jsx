@@ -8,9 +8,7 @@ export function HomePage() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const handleSave = () => {
-    setShow(false);
-  };
+
   return (
     <>
       <h1>Pup Chart</h1>
@@ -21,11 +19,7 @@ export function HomePage() {
             Add Pet
           </button>
         </div>
-        <AddPetModal
-          show={show}
-          handleClose={handleClose}
-          handleSave={handleSave}
-        />
+        <AddPetModal show={show} handleClose={handleClose} />
       </div>
     </>
   );

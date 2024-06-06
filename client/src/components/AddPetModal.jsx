@@ -1,14 +1,41 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Modal, Button, Form } from 'react-bootstrap';
 
-function AddPetModal({ show, handleClose, handleSave }) {
+function AddPetModal({ show, handleClose }) {
   const [formData, setFormData] = useState({
-    user_id: '',
     name: '',
     birthdate: '',
     breed: '',
     profile_picture: '',
   });
+
+  const handleSave = (e) => {
+    e.preventDefault();
+    const params = {
+      user_id: 1, // Hardcoded user ID, replace with logic to get user ID from signed-in user
+      name: formData.name,
+      breed: formData.breed,
+      birthdate: formData.birthdate,
+      profile_picture: formData.profile_picture,
+    };
+
+    axios
+      .post('http://localhost:8083/api/pets', params)
+      .then((response) => {
+        console.log(response.data);
+        window.location.reload();
+        setFormData({
+          name: '',
+          birthdate: '',
+          breed: '',
+          profile_picture: '',
+        });
+      })
+      .catch((error) => {
+        console.log(error.response.data.errors);
+      });
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,34 +45,13 @@ function AddPetModal({ show, handleClose, handleSave }) {
     });
   };
 
-  const onSave = () => {
-    handleSave(formData);
-    setFormData({
-      user_id: '',
-      name: '',
-      birthdate: '',
-      breed: '',
-      profile_picture: '',
-    });
-  };
-
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Add Pet</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
-          <Form.Group className="mb-3" controlId="formUserId">
-            <Form.Label>User ID</Form.Label>
-            <Form.Control
-              type="number"
-              name="user_id"
-              value={formData.user_id}
-              onChange={handleChange}
-              placeholder="Enter user ID"
-            />
-          </Form.Group>
+        <Form onSubmit={handleSave}>
           <Form.Group className="mb-3" controlId="formPetName">
             <Form.Label>Pet Name</Form.Label>
             <Form.Control
@@ -85,14 +91,14 @@ function AddPetModal({ show, handleClose, handleSave }) {
               placeholder="Enter profile picture URL"
             />
           </Form.Group>
+          <Button variant="primary" type="submit">
+            Add Pet
+          </Button>
         </Form>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
           Close
-        </Button>
-        <Button variant="primary" onClick={onSave}>
-          Save Changes
         </Button>
       </Modal.Footer>
     </Modal>
