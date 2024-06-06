@@ -1,5 +1,17 @@
 const router = require('express').Router();
 const pool = require('../../config/db');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+
+// Ensure the public/images directory exists
+const imageDir = path.join(
+  __dirname,
+  '../../../client/public/images',
+);
+if (!fs.existsSync(imageDir)) {
+  fs.mkdirSync(imageDir, { recursive: true });
+}
 
 // GET all pets route
 router.get('/', (req, res) => {
@@ -43,5 +55,28 @@ router.post('/', (req, res) => {
     },
   );
 });
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, imageDir);
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${file.originalname}`);
+  },
+});
+const upload = multer({ storage });
+router.post(
+  '/uploadFileAPI',
+  upload.single('file'),
+  (req, res, next) => {
+    const file = req.file;
+    if (!file) {
+      const error = new Error('No file uploaded');
+      error.httpStatusCode = 400;
+      return next(error);
+    }
+    res.status(200).json({ fileName: file.filename });
+  },
+);
 
 module.exports = router;

@@ -10,8 +10,30 @@ function AddPetModal({ show, handleClose }) {
     profile_picture: '',
   });
 
+  const uploadFile = (event) => {
+    const data = new FormData();
+    data.append('file', event.target.files[0]);
+
+    axios
+      .post('http://localhost:8083/api/pets/uploadFileAPI', data)
+      .then((res) => {
+        console.log(res.statusText);
+        console.log(res.data.fileName, 'FILE NAMEEEE');
+
+        // Update formData with the file name
+        setFormData({
+          ...formData,
+          profile_picture: res.data.fileName,
+        });
+      })
+      .catch((error) => {
+        console.error('Error uploading file:', error);
+      });
+  };
+
   const handleSave = (e) => {
     e.preventDefault();
+
     const params = {
       user_id: 1, // Hardcoded user ID, replace with logic to get user ID from signed-in user
       name: formData.name,
@@ -82,13 +104,11 @@ function AddPetModal({ show, handleClose }) {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formProfilePicture">
-            <Form.Label>Profile Picture URL</Form.Label>
+            <Form.Label>Profile Picture</Form.Label>
             <Form.Control
-              type="text"
+              type="file"
               name="profile_picture"
-              value={formData.profile_picture}
-              onChange={handleChange}
-              placeholder="Enter profile picture URL"
+              onChange={uploadFile}
             />
           </Form.Group>
           <Button variant="primary" type="submit">
