@@ -1,4 +1,3 @@
-import './App.css';
 import 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { Header } from './components/Header';
@@ -7,13 +6,14 @@ import { Signup } from './components/Signup';
 import { Login } from './components/Login';
 import { HomePage } from './components/HomePage';
 import { Route, Routes, useNavigate } from 'react-router-dom';
+import './App.css';
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const jwt = localStorage.getItem("jwt");
+    const jwt = localStorage.getItem('jwt');
     if (jwt) {
       setAuthenticated(true);
     } else {
@@ -28,7 +28,7 @@ function App() {
 
   const handleLogout = () => {
     setAuthenticated(false);
-    localStorage.removeItem("jwt"); // Remove JWT token from local storage on logout
+    localStorage.removeItem('jwt'); // Remove JWT token from local storage on logout
   };
 
   return (
@@ -37,10 +37,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         {!authenticated && (
-          <Route
-            path="/signup"
-            element={<Signup />}
-          />
+          <Route path="/signup" element={<Signup />} />
         )}
         {!authenticated && (
           <Route
