@@ -19,7 +19,6 @@ function PetCards() {
   const [pets, setPets] = useState([]);
   const user = localStorage.getItem('user');
   const jwt = localStorage.getItem('jwt');
-  console.log(user, 'USER'); // Hardcoded user ID, replace with logic to get user ID from signed-in user
 
   useEffect(() => {
     axios
