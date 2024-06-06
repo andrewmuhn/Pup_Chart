@@ -12,7 +12,9 @@ CREATE TABLE "users"(
 CREATE TABLE "pets"(
     "id" SERIAL PRIMARY KEY,
     "user_id" BIGINT NOT NULL,
+    "name" VARCHAR(255) NOT NULL,
     "breed" VARCHAR(255) NOT NULL,
+    "birthdate" DATE NOT NULL,
     "profile_picture" VARCHAR(255),
     CONSTRAINT "pets_user_id_foreign" FOREIGN KEY("user_id") REFERENCES "users"("id")
 );
