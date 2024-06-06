@@ -18,11 +18,11 @@ VALUES (
 -- Inserting pets for each user
 INSERT INTO "pets"("user_id", "name", "birthdate", "breed", "profile_picture")
 VALUES 
-    (1, 'Airbud', '2018-01-01', 'Golden Retriever', 'labrador.jpg'),
-    (1, 'Clifford', '2019-01-01', 'Red', 'bulldog.jpg'),
+   (1, 'Airbud', '2018-01-01', 'Golden Retriever', 'airbud.png'),
+    (1, 'Clifford', '2019-01-01', 'Red', 'clifford.png'),
     (3, 'Scooby Doo', '2020-01-01', 'Great Dane', 'beagle.jpg'),
-    (2, 'Courage', '2017-01-01', 'Beagle', 'poodle.jpg'),
-    (3, 'Balto', '2016-01-01', 'husky', 'rottweiler.jpg');
+    (1, 'Courage', '2017-01-01', 'Beagle', 'courage.png'),
+    (2, 'Balto', '2016-01-01', 'husky', 'rottweiler.jpg');
 
 -- Inserting medication for each pet
 INSERT INTO "medication"("name", "time_of_day", "with_food", "pet_id")
