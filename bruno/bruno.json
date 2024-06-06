@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Pup_Chart",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

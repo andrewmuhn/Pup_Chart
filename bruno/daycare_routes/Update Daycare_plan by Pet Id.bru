@@ -1,0 +1,22 @@
+meta {
+  name: Update Daycare_plan by Pet Id
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:8083/api/daycare/{{petId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "food": "AppleSauce",
+    "walks": "13"
+  }
+}
+
+vars:pre-request {
+  pet_id: 1
+}

@@ -1,0 +1,19 @@
+meta {
+  name: New Daycare Plan By Pet Id
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8083/api/daycare/
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "pet_id": "1",
+    "food": "AppleSauce",
+    "walks": "13"
+  }
+}
