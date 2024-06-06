@@ -8,11 +8,11 @@ export function HomePage() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  const jwt = localStorage.getItem('jwt');
   return (
     <>
       <h1>Pup Chart</h1>
-      <PetCards />
+      {jwt && <PetCards />}
       <div className="row mt-4">
         <div className="col text-center">
           <button className="btn btn-primary" onClick={handleShow}>
