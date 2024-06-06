@@ -18,6 +18,7 @@ function calculateAge(birthdate) {
 function PetCards() {
   const [pets, setPets] = useState([]);
   const user = localStorage.getItem('user');
+  const jwt = localStorage.getItem('jwt');
   console.log(user, 'USER'); // Hardcoded user ID, replace with logic to get user ID from signed-in user
 
   useEffect(() => {
@@ -34,31 +35,35 @@ function PetCards() {
   return (
     <div className="container mt-5">
       <div className="row">
-        {pets.map((pet) => (
-          <div className="col-md-4" key={pet.id}>
-            <div className="card">
-              <img
-                src={'/images/' + pet.profile_picture}
-                className="card-img-top"
-                alt={pet.name}
-              />
-              <div className="card-body">
-                <h5 className="card-title">{pet.name}</h5>
-                <p className="card-text">
-                  Breed: {pet.breed}
-                  <br />
-                  Birthdate:{' '}
-                  {new Date(pet.birthdate).toLocaleDateString()}
-                  <br />
-                  Age: {calculateAge(pet.birthdate)} years
-                </p>
-                <Link to={`/pets/${pet.id}`} className="btn btn-info">
-                  View Details
-                </Link>
+        {jwt &&
+          pets.map((pet) => (
+            <div className="col-md-4" key={pet.id}>
+              <div className="card">
+                <img
+                  src={'/images/' + pet.profile_picture}
+                  className="card-img-top"
+                  alt={pet.name}
+                />
+                <div className="card-body">
+                  <h5 className="card-title">{pet.name}</h5>
+                  <p className="card-text">
+                    Breed: {pet.breed}
+                    <br />
+                    Birthdate:{' '}
+                    {new Date(pet.birthdate).toLocaleDateString()}
+                    <br />
+                    Age: {calculateAge(pet.birthdate)} years
+                  </p>
+                  <Link
+                    to={`/pets/${pet.id}`}
+                    className="btn btn-info"
+                  >
+                    View Details
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );
