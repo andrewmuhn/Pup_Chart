@@ -1,0 +1,63 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import courage from '../images/courage.png';
+
+function calculateAge(birthdate) {
+  const today = new Date();
+  const dob = new Date(birthdate);
+  const age = today.getFullYear() - dob.getFullYear();
+
+  if (age < 1) {
+    return '<1';
+  }
+
+  return age;
+}
+
+function PetCards() {
+  const [pets, setPets] = useState([]);
+  const user = 1; // Hardcoded user ID, replace with logic to get user ID from signed-in user
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8083/api/pets/${user}`)
+      .then((response) => {
+        setPets(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching pets:', error);
+      });
+  }, []);
+
+  return (
+    <div className="container mt-5">
+      <div className="row">
+        {pets.map((pet) => (
+          <div className="col-md-4" key={pet.id}>
+            <div className="card">
+              <img
+                src={'../images/courage.png'}
+                className="card-img-top"
+                alt={pet.name}
+              />
+              <div className="card-body">
+                <h5 className="card-title">{pet.name}</h5>
+                <p className="card-text">
+                  Breed: {pet.breed}
+                  <br />
+                  Birthdate:{' '}
+                  {new Date(pet.birthdate).toLocaleDateString()}
+                  <br />
+                  Age: {calculateAge(pet.birthdate)} years
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default PetCards;
