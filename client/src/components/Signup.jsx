@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { useState } from 'react';
+import { postNewUser } from '../utils/api/userCalls';
 
 export function Signup() {
   const [errors, setErrors] = useState([]);
@@ -9,10 +9,7 @@ export function Signup() {
     setErrors([]);
     const formData = new FormData(event.target);
     const params = Object.fromEntries(formData.entries());
-
-    console.log(params, 'form data');
-    axios
-      .post('http://localhost:8083/api/users', params)
+    postNewUser(params)
       .then((response) => {
         console.log(response.data);
         event.target.reset();

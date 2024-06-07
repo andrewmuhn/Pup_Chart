@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { postNewUserSession } from '../utils/api/userCalls';
 
 export function Login() {
   const [errors, setErrors] = useState([]);
@@ -17,9 +18,7 @@ export function Login() {
     setErrors([]);
     const formData = new FormData(event.target);
     const params = Object.fromEntries(formData.entries());
-
-    axios
-      .post('http://localhost:8083/api/users/sessions', params)
+      postNewUserSession(params)
       .then((response) => {
         console.log(response.data);
         axios.defaults.headers.common['Authorization'] =
