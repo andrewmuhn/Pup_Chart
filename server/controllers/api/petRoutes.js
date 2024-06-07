@@ -38,6 +38,21 @@ router.get('/:userId', (req, res) => {
   );
 });
 
+// GET pets by pet ID route
+router.get('/pet/:petId', (req, res) => {
+  const petId = req.params.petId;
+  pool.query(
+    'SELECT * FROM pets WHERE id = $1',
+    [petId],
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      res.status(200).json(results.rows);
+    },
+  );
+});
+
 // POST route to add a new pet
 router.post('/', (req, res) => {
   const { user_id, name, breed, birthdate, profile_picture } =

@@ -5,7 +5,11 @@ meta {
 }
 
 get {
-  url: 
+  url: http://localhost:8083/api/daycare/{{petId}}
   body: none
   auth: none
+}
+
+vars:pre-request {
+  pet_id: 2
 }
