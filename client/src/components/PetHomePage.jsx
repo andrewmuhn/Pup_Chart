@@ -12,7 +12,11 @@ export function PetHomePage() {
   const { id } = useParams();
 
   useEffect(() => {
-    setPet(fetchPetData(id).data[0]);
+    fetchPetData(id)
+    .then(response => {
+      setPet(response.data[0]);
+    })
+
   }, [id]);
 
   return (
@@ -37,4 +41,3 @@ export function PetHomePage() {
     </>
   );
 }
-
