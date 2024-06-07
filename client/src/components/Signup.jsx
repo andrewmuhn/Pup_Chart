@@ -37,22 +37,19 @@ export function Signup() {
           <li key={error}>{error}</li>
         ))} */}
       </ul>
-      <form onSubmit={handleSubmit}>
-        <div>
-          Name: <input name="name" type="text" />
-        </div>
-        <div>
-          Email: <input name="email" type="email" />
-        </div>
-        <div>
-          Password: <input name="password" type="password" />
-        </div>
-        {/* <div>
-          Password confirmation:{' '}
-          <input name="password_confirmation" type="password" />
-        </div> */}
-        <button type="submit">Signup</button>
-      </form>
+      <div className="form-container">
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="exampleInputEmail1">Email address</label>
+            <input name="email" type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required />
+          </div>
+          <div className="form-group">
+            <label htmlFor="exampleInputPassword1">Password</label>
+            <input name="password" type="password" className="form-control" id="exampleInputPassword1" required />
+          </div>
+          <button type="submit" className="my-btn btn-primary">Submit</button>
+        </form>
+      </div>  
     </div>
   );
 }
