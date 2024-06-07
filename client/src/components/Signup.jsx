@@ -16,7 +16,7 @@ export function Signup() {
       .then((response) => {
         console.log(response.data);
         event.target.reset();
-        window.location.href = 'http://localhost:3000'; // Change this to hide a modal, redirect to a specific page, etc.
+        window.location.href = 'http://localhost:3000/login'; // Change this to hide a modal, redirect to a specific page, etc.
       })
       .catch((error) => {
         if (error.response && error.response.data.errors) {
@@ -39,6 +39,10 @@ export function Signup() {
       </ul>
       <div className="form-container">
         <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="exampleInputName">Name</label>
+            <input name="name" type="text" className="form-control" id="exampleInputName" required />
+          </div>
           <div className="form-group">
             <label htmlFor="exampleInputEmail1">Email address</label>
             <input name="email" type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required />
