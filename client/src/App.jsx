@@ -5,6 +5,7 @@ import { Footer } from './components/Footer';
 import { Signup } from './components/Signup';
 import { Login } from './components/Login';
 import { HomePage } from './components/HomePage';
+import { PetHomePage } from './components/PetHomePage';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
 
@@ -44,6 +45,9 @@ function App() {
             path="/login"
             element={<Login onLogin={handleLogin} />}
           />
+        )}
+        {authenticated && (
+          <Route path='/pets/:id' element={<PetHomePage />} />
         )}
       </Routes>
       <Footer />

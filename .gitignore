@@ -20,5 +20,6 @@ build/
 # Ignore OS-specific files
 .DS_Store
 Thumbs.db
+
 # Ignore package lock file
 package-lock.json
