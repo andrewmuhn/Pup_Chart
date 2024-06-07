@@ -3,6 +3,7 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import calculateAge from '../utils/calculateAge';
+import { fetchPetsByUser } from '../utils/api/petCalls';
 
 function PetCards() {
   const [pets, setPets] = useState([]);
@@ -10,15 +11,14 @@ function PetCards() {
   const jwt = localStorage.getItem('jwt');
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8083/api/pets/${user}`)
+      fetchPetsByUser(user)
       .then((response) => {
         setPets(response.data);
       })
       .catch((error) => {
         console.error('Error fetching pets:', error);
       });
-  }, []);
+  }, [user]);
 
   return (
     <div className="container mt-5">

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Modal, Button, Form } from 'react-bootstrap';
+import { postNewPet, uploadPetIamge } from '../utils/api/petCalls';
 
 function AddPetModal({ show, handleClose }) {
   const [formData, setFormData] = useState({
@@ -10,52 +10,37 @@ function AddPetModal({ show, handleClose }) {
     profile_picture: '',
   });
 
-  const uploadFile = (event) => {
+  const uploadFile = async (event) => {
     const data = new FormData();
     data.append('file', event.target.files[0]);
 
-    axios
-      .post('http://localhost:8083/api/pets/uploadFileAPI', data)
-      .then((res) => {
-        console.log(res.statusText);
-
+    const petImageResponse = await uploadPetIamge(data)
         // Update formData with the file name
         setFormData({
           ...formData,
-          profile_picture: res.data.fileName,
+          profile_picture: petImageResponse.data.fileName,
         });
-      })
-      .catch((error) => {
-        console.error('Error uploading file:', error);
-      });
   };
 
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
 
     const params = {
-      user_id: localStorage.getItem('user'), // Hardcoded user ID, replace with logic to get user ID from signed-in user
+      user_id: localStorage.getItem('user'),
       name: formData.name,
       breed: formData.breed,
       birthdate: formData.birthdate,
       profile_picture: formData.profile_picture,
     };
 
-    axios
-      .post('http://localhost:8083/api/pets', params)
-      .then((response) => {
-        console.log(response.data);
-        window.location.reload();
-        setFormData({
-          name: '',
-          birthdate: '',
-          breed: '',
-          profile_picture: '',
-        });
-      })
-      .catch((error) => {
-        console.log(error.response.data.errors);
-      });
+    postNewPet(params)
+    window.location.reload();
+    setFormData({
+      name: '',
+      birthdate: '',
+      breed: '',
+      profile_picture: '',
+    });
   };
 
   const handleChange = (e) => {
