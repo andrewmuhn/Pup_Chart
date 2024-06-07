@@ -22,7 +22,7 @@ export const fetchPetsByUser = async (userId) => {
 
 export const postNewPet = async (params) => {
   try {
-    axios.post('http://localhost:8083/api/pets', params);
+    return await axios.post('http://localhost:8083/api/pets', params);
   } catch (error) {
     console.error(error);
   }
@@ -30,8 +30,11 @@ export const postNewPet = async (params) => {
 
 export const uploadPetIamge = async (data) => {
   try {
-    axios.post('http://localhost:8083/api/pets/uploadFileAPI', data);
+    return await axios.post(
+      'http://localhost:8083/api/pets/uploadFileAPI',
+      data,
+    );
   } catch (error) {
-    console.error(error);
+    console.error('Error uploading file:', error);
   }
 };

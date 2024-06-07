@@ -14,7 +14,7 @@ if (!fs.existsSync(imageDir)) {
 }
 
 // GET all pets route
-router.get('/', (req, res) => {
+router.get('/', (_req, res) => {
   pool.query('SELECT * FROM pets', (error, results) => {
     if (error) {
       throw error;
