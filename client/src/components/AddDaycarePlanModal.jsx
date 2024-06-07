@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Modal, Button, Form } from 'react-bootstrap';
 
-function AddDaycarePlanModal({ show, handleClose }) {
+function AddDaycarePlanModal({ show, handleClose, pet }) {
   const [formData, setFormData] = useState({
     food: '',
     walks: ''
@@ -10,7 +10,7 @@ function AddDaycarePlanModal({ show, handleClose }) {
 
   const  handleDaycarePost = (params) => {
     axios
-    .post('http://localhost:8083/api/pets', params)
+    .post('http://localhost:8083/api/daycare', params)
     .then((response) => {
       console.log(response.data);
       window.location.reload();
@@ -27,7 +27,7 @@ function AddDaycarePlanModal({ show, handleClose }) {
   const handleSave = (e) => {
     e.preventDefault();
     const params = {
-      pet_id: 1, // Hardcoded pet ID, replace with logic to get user ID from signed-in user
+      pet_id: pet.id,
       food: formData.food,
       walks: formData.walks
     };
@@ -46,7 +46,7 @@ function AddDaycarePlanModal({ show, handleClose }) {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Add Pet</Modal.Title>
+        <Modal.Title>Add Daycare Plan for {pet.name}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSave}>
@@ -55,17 +55,17 @@ function AddDaycarePlanModal({ show, handleClose }) {
             <Form.Control
               type="text"
               name="food"
-              value={formData.name}
+              value={formData.food}
               onChange={handleChange}
               placeholder="Enter the food your pet eats"
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formPetWalks">
-            <Form.Label>Breed</Form.Label>
+            <Form.Label>Walks</Form.Label>
             <Form.Control
               type="text"
               name="walks"
-              value={formData.breed}
+              value={formData.walks}
               onChange={handleChange}
               placeholder="Enter the number of walks your pet takes"
             />
