@@ -1,11 +1,37 @@
 import axios from 'axios';
 
-export const fetchPetData = async (id) => {
+export const fetchPetData = async (petId) => {
   try {
     return await axios.get(
-      `http://localhost:8083/api/pets/pet/${id}`,
+      `http://localhost:8083/api/pets/pet/${petId}`,
     );
   } catch (error) {
     console.error('Error fetching pet:', error);
+  }
+};
+
+export const fetchPetsByUser = async (userId) => {
+  try {
+    return await axios.get(
+      `http://localhost:8083/api/pets/${userId}`,
+    );
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const postNewPet = async (params) => {
+  try {
+    axios.post('http://localhost:8083/api/pets', params);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const uploadPetIamge = async (data) => {
+  try {
+    axios.post('http://localhost:8083/api/pets/uploadFileAPI', data);
+  } catch (error) {
+    console.error(error);
   }
 };

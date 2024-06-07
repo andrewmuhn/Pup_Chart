@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Modal, Button, Form } from 'react-bootstrap';
+import { postNewPet, uploadPetIamge } from '../utils/api/petCalls';
 
 function AddPetModal({ show, handleClose }) {
   const [formData, setFormData] = useState({
@@ -14,8 +15,7 @@ function AddPetModal({ show, handleClose }) {
     const data = new FormData();
     data.append('file', event.target.files[0]);
 
-    axios
-      .post('http://localhost:8083/api/pets/uploadFileAPI', data)
+    uploadPetIamge(data)
       .then((res) => {
         console.log(res.statusText);
 
@@ -41,8 +41,7 @@ function AddPetModal({ show, handleClose }) {
       profile_picture: formData.profile_picture,
     };
 
-    axios
-      .post('http://localhost:8083/api/pets', params)
+    postNewPet(params)
       .then((response) => {
         console.log(response.data);
         window.location.reload();
