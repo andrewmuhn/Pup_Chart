@@ -4,43 +4,25 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import calculateAge from '../utils/calculateAge';
 
-const loadPet = async (petId) => {
-  try {
-    const PetResponse = await fetch(`/api/pets/pet/${petId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  
-    if (PetResponse.ok) {  
-      console.log(PetResponse);  
-    }
-  } catch (error) {
-    console.error(error);
-  }
-
-}
-
 export function PetHomePage() {
   const [show, setShow] = useState(false);
   const [pet, setPet] = useState([]);
-  console.log(pet);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const { id } = useParams();
 
-useEffect(() => {
-  axios
-    .get(`http://localhost:8083/api/pets/pet/${id}`)
-    .then((response) => {
-      // console.log(response);
-      setPet(response.data[0])
-    })
-    .catch((error) => {
+  const fetchPetData = async (id) => {
+    try {
+      const response = await axios.get(`http://localhost:8083/api/pets/pet/${id}`);
+      setPet(response.data[0]);
+    } catch (error) {
       console.error('Error fetching pet:', error);
-    });
-}, [id])
+    }
+  };
+
+  useEffect(() => {
+    fetchPetData(id);
+  }, [id]);
 
   return (
     <>
