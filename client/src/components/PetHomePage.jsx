@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import AddDaycarePlanModal from './AddDaycarePlanModal';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import { fetchPetData } from '../utils/api/petCalls';
 import calculateAge from '../utils/calculateAge';
 
 export function PetHomePage() {
@@ -11,17 +11,12 @@ export function PetHomePage() {
   const handleShow = () => setShow(true);
   const { id } = useParams();
 
-  const fetchPetData = async (id) => {
-    try {
-      const response = await axios.get(`http://localhost:8083/api/pets/pet/${id}`);
-      setPet(response.data[0]);
-    } catch (error) {
-      console.error('Error fetching pet:', error);
-    }
-  };
-
   useEffect(() => {
-    fetchPetData(id);
+    fetchPetData(id)
+    .then(response => {
+      setPet(response.data[0]);
+    })
+
   }, [id]);
 
   return (
