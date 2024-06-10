@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import AddDaycarePlanModal from './AddDaycarePlanModal';
 import ViewDaycarePlanModal from './ViewDaycarePlanModal';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { fetchPetData } from '../utils/api/petCalls';
 import { fetchDaycarePlanByPetId } from '../utils/api/daycareCalls';
 import calculateAge from '../utils/calculateAge';
@@ -11,29 +11,41 @@ export function PetHomePage() {
   const [showViewDaycare, setShowViewDaycare] = useState(false);
   const [pet, setPet] = useState([]);
   const [daycarePlan, setDaycarePlan] = useState([]);
+  
   const { id } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const openModalRef = useRef();
+
   const handleCloseAddDaycare = () => setShowAddDaycare(false);
   const handleShowAddDaycare = () => setShowAddDaycare(true);
   const handleCloseViewDaycare = () => setShowViewDaycare(false);
   const handleShowViewDaycare = () => setShowViewDaycare(true);
-
   const handleEdit = () => {
     handleCloseViewDaycare();
     handleShowAddDaycare();
-    console.log('Edit');
   }
 
   useEffect(() => {
-    fetchPetData(id)
-    .then((response) => {
-      setPet(response.data[0]);
-    });
-    fetchDaycarePlanByPetId(id)
-    .then((response) => {
-      console.log(response.data[0]);
-      setDaycarePlan(response.data[0]);
-    });
-  }, [id]);
+    openModalRef.current = location.state?.openModal;
+  }, [location.state?.openModal]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const petResponse = await fetchPetData(id);
+      setPet(petResponse.data[0]);
+  
+      const daycarePlanResponse = await fetchDaycarePlanByPetId(id);
+      setDaycarePlan(daycarePlanResponse.data[0]);
+  
+      if (openModalRef.current) {
+        handleShowViewDaycare();
+        navigate(window.location.pathname, { replace: true });
+      }
+    };
+  
+    fetchData();
+  }, [id, navigate]);
 
   return (
     <>
@@ -63,6 +75,7 @@ export function PetHomePage() {
           handleClose={handleCloseAddDaycare}
           pet={pet}
           daycarePlan={daycarePlan}
+          handleShowViewDaycare={handleShowViewDaycare}
         />
         <ViewDaycarePlanModal
           show={showViewDaycare}
