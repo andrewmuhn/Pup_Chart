@@ -43,13 +43,13 @@ router.post('/', (req, res) => {
   );
 });
 
-router.put('/:pet_id', (req, res) => {
-  const pet_id = parseInt(req.params.pet_id);
+router.put('/:daycare_id', (req, res) => {
+  const daycare_id = parseInt(req.params.daycare_id);
   const { food, walks } = req.body;
 
   pool.query(
-    'UPDATE daycare_plan SET food = $1, walks = $2 WHERE pet_id = $3 RETURNING *',
-    [food, walks, pet_id],
+    'UPDATE daycare_plan SET food = $1, walks = $2 WHERE id = $3 RETURNING *',
+    [food, walks, daycare_id],
     (error, results) => {
       if (error) {
         throw error;

@@ -1,18 +1,16 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { postDaycarePlan, editDaycarePlan } from '../utils/api/daycareCalls';
 import { Modal, Button, Form } from 'react-bootstrap';
 
-function AddDaycarePlanModal({ show, handleClose, pet }) {
+function AddDaycarePlanModal({ show, handleClose, pet, daycarePlan }) {
   const [formData, setFormData] = useState({
-    food: '',
-    walks: ''
+    food: daycarePlan ? daycarePlan.food : '',
+    walks: daycarePlan ? daycarePlan.walks : ''
   });
 
   const  handleDaycarePost = (params) => {
-    axios
-    .post('http://localhost:8083/api/daycare', params)
-    .then((response) => {
-      console.log(response.data);
+    postDaycarePlan(params)
+    .then((_res) => {
       window.location.reload();
       setFormData({
         food: '',
@@ -20,7 +18,21 @@ function AddDaycarePlanModal({ show, handleClose, pet }) {
       });
     })
     .catch((error) => {
-      console.log(error.response.data.errors);
+      console.error(error.response.data.errors);
+    });
+  }
+  const handleDaycareEdit = (params) => {
+    const daycareId = daycarePlan.id;
+    editDaycarePlan(daycareId, params)
+    .then(_res => {
+      window.location.reload();
+      setFormData({
+        food: '',
+        walks: ''
+      });
+    })
+    .catch((error) => {
+      console.error(error.response.data.errors);
     });
   }
 
@@ -31,9 +43,19 @@ function AddDaycarePlanModal({ show, handleClose, pet }) {
       food: formData.food,
       walks: formData.walks
     };
-
     handleDaycarePost(params);
   };
+
+  const handleEdit = (e) => {
+    e.preventDefault();
+    const params = {
+      pet_id: pet.id,
+      food: formData.food,
+      walks: formData.walks
+    };
+
+    handleDaycareEdit(params);
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,6 +64,20 @@ function AddDaycarePlanModal({ show, handleClose, pet }) {
       [name]: value,
     });
   };
+
+  useEffect(() => {
+    if(daycarePlan) {
+      setFormData({
+        food: daycarePlan.food,
+        walks: daycarePlan.walks,
+      });
+    } else {
+      setFormData({
+        food: '',
+        walks: '',
+      });
+    }
+  }, [daycarePlan]);
 
   return (
     <Modal show={show} onHide={handleClose}>
@@ -70,9 +106,13 @@ function AddDaycarePlanModal({ show, handleClose, pet }) {
               placeholder="Enter the number of walks your pet takes"
             />
           </Form.Group>
-          <Button variant="primary" type="submit">
+          {daycarePlan ? (
+            <button className="btn btn-primary" onClick={handleEdit}>Edit Daycare Plan</button>
+          ) : (
+          <button className="btn btn-primary" onClick={handleSave}>
             Add Daycare Plan
-          </Button>
+          </button>
+          )}
         </Form>
       </Modal.Body>
       <Modal.Footer>
