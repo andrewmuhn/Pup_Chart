@@ -2,9 +2,9 @@
   "name": "pup-chart",
   "version": "1.0.0",
   "description": "A simple pet info tracking app. Everything you need to know about your animal(s) in one place!",
-  "main": "server/server.js",
+  "main": "server/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --watchAll",
     "start": "node server --ignore client",
     "dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
     "install": "cd server && npm i && cd ../client && npm i",
@@ -25,7 +25,9 @@
     "eslint": "^9.4.0",
     "eslint-config-prettier": "^9.1.0",
     "husky": "^9.0.11",
-    "prettier": "^3.3.0"
+    "jest": "^29.7.0",
+    "prettier": "^3.3.0",
+    "supertest": "^7.0.0"
   },
   "husky": {
     "hooks": {

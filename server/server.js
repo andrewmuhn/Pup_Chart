@@ -20,7 +20,4 @@ app.get('/', (req, res) => {
 
 app.use(routes);
 
-const server = app.listen(8083, () => {
-  const port = server.address().port;
-  console.info(`App listening at http://localhost:${port}`);
-});
+module.exports = app;
