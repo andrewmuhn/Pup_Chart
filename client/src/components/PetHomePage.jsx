@@ -11,6 +11,11 @@ export function PetHomePage() {
   const [showViewDaycare, setShowViewDaycare] = useState(false);
   const [pet, setPet] = useState([]);
   const [daycarePlan, setDaycarePlan] = useState([]);
+
+  const { name, profile_picture, breed, birthdate } = pet;
+  const imageUrl = `/images/${profile_picture}`;
+  const age = calculateAge(birthdate);
+  const formattedBirthdate = new Date(birthdate).toLocaleDateString();
   
   const { id } = useParams();
   const location = useLocation();
@@ -24,6 +29,16 @@ export function PetHomePage() {
   const handleEdit = () => {
     handleCloseViewDaycare();
     handleShowAddDaycare();
+  }
+
+  const renderButton = () => {
+    return daycarePlan ? (
+      <button className="btn btn-primary" onClick={handleShowViewDaycare}>View Daycare Plan</button>
+    ) : (
+    <button className="btn btn-primary" onClick={handleShowAddDaycare}>
+      Add Daycare Plan
+    </button>
+    );
   }
 
   useEffect(() => {
@@ -49,26 +64,20 @@ export function PetHomePage() {
 
   return (
     <>
-      <h1>{pet.name}</h1>
+      <h1>{name}</h1>
       <div className="row mt-4">
         <div className="col text-center">
           <img
-            src={'/images/' + pet.profile_picture}
+            src={imageUrl}
             className="card-img-top"
-            alt={pet.name}
+            alt={name}
           />
-          <h3>{pet.breed}</h3>
-          <p>Age: {calculateAge(pet.birthdate)}</p>
+          <h3>{breed}</h3>
+          <p>Age: {age}</p>
           <p>
-            Birthdate: {new Date(pet.birthdate).toLocaleDateString()}
+            Birthdate: {formattedBirthdate}
           </p>
-          {daycarePlan ? (
-            <button className="btn btn-primary" onClick={handleShowViewDaycare}>View Daycare Plan</button>
-          ) : (
-          <button className="btn btn-primary" onClick={handleShowAddDaycare}>
-            Add Daycare Plan
-          </button>
-          )}
+          {renderButton()}
         </div>
         <AddDaycarePlanModal
           show={showAddDaycare}
