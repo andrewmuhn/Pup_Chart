@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { postDaycarePlan, editDaycarePlan } from '../utils/api/daycareCalls';
 import { Modal, Button, Form } from 'react-bootstrap';
 
 function AddDaycarePlanModal({ show, handleClose, pet, daycarePlan }) {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     food: daycarePlan ? daycarePlan.food : '',
     walks: daycarePlan ? daycarePlan.walks : ''
@@ -12,27 +15,20 @@ function AddDaycarePlanModal({ show, handleClose, pet, daycarePlan }) {
     postDaycarePlan(params)
     .then((_res) => {
       window.location.reload();
-      setFormData({
-        food: '',
-        walks: ''
-      });
     })
     .catch((error) => {
-      console.error(error.response.data.errors);
+      console.error(error);
     });
   }
   const handleDaycareEdit = (params) => {
     const daycareId = daycarePlan.id;
     editDaycarePlan(daycareId, params)
     .then(_res => {
+      navigate(window.location.pathname, { state: { openModal: true }, replace: true });
       window.location.reload();
-      setFormData({
-        food: '',
-        walks: ''
-      });
     })
     .catch((error) => {
-      console.error(error.response.data.errors);
+      console.error(error);
     });
   }
 
