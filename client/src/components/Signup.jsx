@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { postNewUser } from '../utils/api/userCalls';
 
 export function Signup() {
-  const [errors, setErrors] = useState([]);
+  const [setErrors] = useState([]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
