@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
-import { postNewPet, uploadPetIamge } from '../utils/api/petCalls';
+import { postNewPet, uploadPetImage } from '../utils/api/petCalls';
+import dogBreeds from '../utils/dogBreeds';
 
 function AddPetModal({ show, handleClose }) {
   const [formData, setFormData] = useState({
@@ -14,12 +15,12 @@ function AddPetModal({ show, handleClose }) {
     const data = new FormData();
     data.append('file', event.target.files[0]);
 
-    const petImageResponse = await uploadPetIamge(data)
-        // Update formData with the file name
-        setFormData({
-          ...formData,
-          profile_picture: petImageResponse.data.fileName,
-        });
+    const petImageResponse = await uploadPetImage(data);
+    // Update formData with the file name
+    setFormData({
+      ...formData,
+      profile_picture: petImageResponse.data.fileName,
+    });
   };
 
   const handleSave = async (e) => {
@@ -30,10 +31,10 @@ function AddPetModal({ show, handleClose }) {
       name: formData.name,
       breed: formData.breed,
       birthdate: formData.birthdate,
-      profile_picture: formData.profile_picture,
+      profile_picture: formData.profile_picture || 'logo.png',
     };
 
-    postNewPet(params)
+    postNewPet(params);
     window.location.reload();
     setFormData({
       name: '',
@@ -71,12 +72,20 @@ function AddPetModal({ show, handleClose }) {
           <Form.Group className="mb-3" controlId="formPetBreed">
             <Form.Label>Breed</Form.Label>
             <Form.Control
-              type="text"
+              as="select"
               name="breed"
               value={formData.breed}
               onChange={handleChange}
-              placeholder="Enter pet breed"
-            />
+            >
+              <option value="" disabled>
+                Select breed
+              </option>
+              {dogBreeds.map((breed, index) => (
+                <option key={index} value={breed}>
+                  {breed}
+                </option>
+              ))}
+            </Form.Control>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formPetBirthdate">
             <Form.Label>Birthdate</Form.Label>
