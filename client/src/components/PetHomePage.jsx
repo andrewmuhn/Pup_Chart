@@ -60,7 +60,7 @@ export function PetHomePage() {
     };
   
     fetchData();
-  }, [id, navigate]);
+  }, [id, navigate, setPet]);
 
   return (
     <>
