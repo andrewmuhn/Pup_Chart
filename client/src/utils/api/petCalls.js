@@ -28,7 +28,7 @@ export const postNewPet = async (params) => {
   }
 };
 
-export const uploadPetIamge = async (data) => {
+export const uploadPetImage = async (data) => {
   try {
     return await axios.post(
       'http://localhost:8083/api/pets/uploadFileAPI',

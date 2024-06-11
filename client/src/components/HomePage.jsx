@@ -16,7 +16,10 @@ export function HomePage() {
           <PetCards />
           <div className="row mt-4">
             <div className="col text-center">
-              <button className="btn btn-primary" onClick={handleShow}>
+              <button
+                className="btn btn-primary"
+                onClick={handleShow}
+              >
                 Add Pet
               </button>
             </div>
@@ -26,10 +29,18 @@ export function HomePage() {
       ) : (
         <>
           <h1>Welcome to Pup Chart!</h1>
-          <h2>Please <a href="/login">login</a> to view your pets. Or <a href="/signup">signup</a> and join our pack of proud pet parents!</h2>
+          <h2>
+            Please <a href="/login">login</a> to view your pets. Or{' '}
+            <a href="/signup">signup</a> and join our pack of proud
+            pet parents!
+          </h2>
           <div>
             <p>
-              <img src="/images/company-logo.png" alt="logo" className='company-logo' />
+              <img
+                src="/images/logo-slogan.png"
+                alt="logo"
+                className="company-logo"
+              />
             </p>
           </div>
         </>
