@@ -125,3 +125,14 @@ p {
 .card-text {
   color: black;
 }
+
+.card-img-top {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.pet-image {
+  height: 70%;
+  width: 28%;
+}

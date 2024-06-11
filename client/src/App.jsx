@@ -33,30 +33,6 @@ function App() {
     localStorage.removeItem('jwt'); // Remove JWT token from local storage on logout
   };
   return (
-<<<<<<< Updated upstream
-    <div>
-      <Header authenticated={authenticated} onLogout={handleLogout} />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        {!authenticated && (
-          <Route path="/signup" element={<Signup />} />
-        )}
-        {!authenticated && (
-          <Route
-            path="/login"
-            element={<Login onLogin={handleLogin} />}
-          />
-        )}
-        {authenticated && (
-          <Route path='/pets/:id' element={
-            <PetProvider>
-              <PetHomePage />
-            </PetProvider>
-          } />
-        )}
-      </Routes>
-      <Footer />
-=======
     <div
       className="background"
       style={{ backgroundImage: `url('/images/dogbackground.jpg')` }}
@@ -78,12 +54,18 @@ function App() {
             />
           )}
           {authenticated && (
-            <Route path="/pets/:id" element={<PetHomePage />} />
+            <Route
+              path="/pets/:id"
+              element={
+                <PetProvider>
+                  <PetHomePage />
+                </PetProvider>
+              }
+            />
           )}
         </Routes>
         <Footer />
       </div>
->>>>>>> Stashed changes
     </div>
   );
 }
