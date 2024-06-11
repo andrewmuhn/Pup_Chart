@@ -7,6 +7,7 @@ import { Login } from './components/Login';
 import { HomePage } from './components/HomePage';
 import { PetHomePage } from './components/PetHomePage';
 import { Route, Routes, useNavigate } from 'react-router-dom';
+import { PetProvider } from './contexts/PetContext';
 import './App.css';
 
 function App() {
@@ -47,7 +48,11 @@ function App() {
           />
         )}
         {authenticated && (
-          <Route path='/pets/:id' element={<PetHomePage />} />
+          <Route path='/pets/:id' element={
+            <PetProvider>
+              <PetHomePage />
+            </PetProvider>
+          } />
         )}
       </Routes>
       <Footer />

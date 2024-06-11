@@ -1,6 +1,7 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useContext } from 'react';
 import AddDaycarePlanModal from './AddDaycarePlanModal';
 import ViewDaycarePlanModal from './ViewDaycarePlanModal';
+import PetContext from '../contexts/PetContext';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { fetchPetData } from '../utils/api/petCalls';
 import { fetchDaycarePlanByPetId } from '../utils/api/daycareCalls';
@@ -9,9 +10,8 @@ import calculateAge from '../utils/calculateAge';
 export function PetHomePage() {
   const [showAddDaycare, setShowAddDaycare] = useState(false);
   const [showViewDaycare, setShowViewDaycare] = useState(false);
-  const [pet, setPet] = useState([]);
+  const {pet, setPet} = useContext(PetContext);
   const [daycarePlan, setDaycarePlan] = useState([]);
-
   const { name, profile_picture, breed, birthdate } = pet;
   const imageUrl = `/images/${profile_picture}`;
   const age = calculateAge(birthdate);
@@ -64,32 +64,30 @@ export function PetHomePage() {
 
   return (
     <>
-      <h1>{name}</h1>
+      <h1>{name || 'loading..'}</h1>
       <div className="row mt-4">
         <div className="col text-center">
           <img
-            src={imageUrl}
+            src={imageUrl || 'loading..'}
             className="card-img-top"
-            alt={name}
+            alt={name || 'loading..'}
           />
-          <h3>{breed}</h3>
-          <p>Age: {age}</p>
+          <h3>{breed || 'loading..'}</h3>
+          <p>Age: {age || 'loading..'}</p>
           <p>
-            Birthdate: {formattedBirthdate}
+            Birthdate: {formattedBirthdate || 'loading..'}
           </p>
           {renderButton()}
         </div>
         <AddDaycarePlanModal
           show={showAddDaycare}
           handleClose={handleCloseAddDaycare}
-          pet={pet}
           daycarePlan={daycarePlan}
           handleShowViewDaycare={handleShowViewDaycare}
         />
         <ViewDaycarePlanModal
           show={showViewDaycare}
           handleClose={handleCloseViewDaycare}
-          pet={pet}
           daycarePlan={daycarePlan}
           handleEdit={handleEdit}
         />
