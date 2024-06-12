@@ -12,12 +12,11 @@ export function HomePage() {
     <>
       {jwt ? (
         <>
-          <h1>Pup Chart</h1>
           <PetCards />
           <div className="row mt-4">
             <div className="col text-center">
               <button
-                className="btn btn-primary"
+                className="btn btn-primary add-pet"
                 onClick={handleShow}
               >
                 Add Pet
@@ -28,13 +27,8 @@ export function HomePage() {
         </>
       ) : (
         <>
-          <h1>Welcome to Pup Chart!</h1>
-          <h2>
-            Please <a href="/login">login</a> to view your pets. Or{' '}
-            <a href="/signup">signup</a> and join our pack of proud
-            pet parents!
-          </h2>
           <div>
+            <h1 className="home-h1">Welcome!</h1>
             <p>
               <img
                 src="/images/logo-slogan.png"
@@ -43,6 +37,21 @@ export function HomePage() {
               />
             </p>
           </div>
+          <h2
+            style={{
+              color: 'white',
+            }}
+          >
+            <a className="home-link" href="/signup">
+              Create an account
+            </a>{' '}
+            and join our pack of proud pet parents!
+            <br /> Already a member?{' '}
+            <a className="home-link" href="/login">
+              Log in
+            </a>{' '}
+            to view your pets.
+          </h2>
         </>
       )}
     </>

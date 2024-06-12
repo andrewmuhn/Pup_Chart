@@ -10,13 +10,24 @@ export function Header({ authenticated, onLogout }) {
         style={{ width: '50px', height: '50px' }}
       />
 
-      <h1 className="h4 d-inline-block" style={{ fontWeight: 700, position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>
-        Unleash the Knowledge, Fetch the Best Care
+      <h1
+        className="d-inline-block"
+        style={{
+          fontWeight: 700,
+          position: 'absolute',
+          left: '8%',
+        }}
+      >
+        Pup Chart
       </h1>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container">
           <Link className="navbar-brand" to="/">
-            <img src={'/images/home.png'} alt="logo" style={{ width: '70px' }} />
+            <img
+              src={'/images/home.png'}
+              alt="logo"
+              style={{ width: '70px' }}
+            />
           </Link>
           {!authenticated && (
             <Link className="btn btn-primary mx-2" to="/signup">
