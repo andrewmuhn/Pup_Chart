@@ -10,7 +10,6 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   const { name, email, password } = req.body;
-
   // Hash the password before storing it
   bcrypt.hash(password, 10, (err, hashedPassword) => {
     if (err) {
