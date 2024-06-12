@@ -23,7 +23,7 @@ export function Signup() {
 
   return (
     <div id="signup">
-      <h1>Signup</h1>
+      <h1 className="h1-white">Signup</h1>
       <div className="form-container">
         <form onSubmit={handleSubmit}>
           <div className="form-group">

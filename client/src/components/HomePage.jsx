@@ -28,7 +28,7 @@ export function HomePage() {
       ) : (
         <>
           <div>
-            <h1 className="home-h1">Welcome!</h1>
+            <h1 className="h1-white">Welcome!</h1>
             <p>
               <img
                 src="/images/logo-slogan.png"
