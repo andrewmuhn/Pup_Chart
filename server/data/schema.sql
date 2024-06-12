@@ -41,3 +41,9 @@ CREATE TABLE "vaccine"(
     CONSTRAINT "vaccine_pet_id_foreign" FOREIGN KEY("pet_id") REFERENCES "pets"("id"),
     PRIMARY KEY("Vaccine")
 );
+
+CREATE OR REPLACE PROCEDURE fetch_pets_by_user(user_id_input INT)
+LANGUAGE SQL
+AS $$
+SELECT * FROM pets WHERE user_id = user_id_input;
+$$;

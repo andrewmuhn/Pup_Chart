@@ -23,19 +23,21 @@ router.get('/', (_req, res) => {
   });
 });
 
-// GET pets by user ID route
-router.get('/:userId', (req, res) => {
-  const userId = req.params.userId;
-  pool.query(
-    'SELECT * FROM pets WHERE user_id = $1',
-    [userId],
-    (error, results) => {
-      if (error) {
-        throw error;
-      }
-      res.status(200).json(results.rows);
-    },
-  );
+// GET pets by user ID
+router.get('/:userId', async (req, res) => {
+  const userId = parseInt(req.params.userId, 10);
+  console.log('userId:', userId);
+
+  try {
+    const { rows } = await pool.query('CALL fetch_pets_by_user($1)', [
+      userId,
+    ]);
+    console.log(rows, 'response');
+    res.status(200).json(rows);
+  } catch (error) {
+    console.error('Error executing stored procedure:', error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 // GET pets by pet ID route
