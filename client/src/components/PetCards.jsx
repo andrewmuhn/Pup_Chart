@@ -41,7 +41,7 @@ function PetCards() {
             <div className="col-md-4" key={pet.id}>
               <div className="card">
                 <img
-                  src={'/images/' + pet.profile_picture}
+                  src={pet.profile_picture}
                   className="card-img-top"
                   alt={pet.name}
                 />
