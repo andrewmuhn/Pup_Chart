@@ -38,7 +38,7 @@ router.post('/', (req, res) => {
       }
       res
         .status(201)
-        .send(`Daycare plan added with ID: ${results.rows[0].id}`);
+        .send(`Daycare plan added with Id: ${results.rows[0].id}`);
     },
   );
 });
