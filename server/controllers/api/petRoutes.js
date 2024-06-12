@@ -24,21 +24,19 @@ router.get('/', (_req, res) => {
 });
 
 // GET pets by user ID
-router.get('/:userId', async (req, res) => {
-  const userId = parseInt(req.params.userId, 10);
+router.get('/:userId', (req, res) => {
+  const userId = req.params.userId;
   pool.query(
-    'SELECT * FROM fetch_pets_by_user($1)',
+    'SELECT * FROM pets WHERE user_id = $1',
     [userId],
     (error, results) => {
       if (error) {
         throw error;
       }
-
       res.status(200).json(results.rows);
     },
   );
 });
-
 // GET pets by pet ID route
 router.get('/pet/:petId', (req, res) => {
   const petId = req.params.petId;

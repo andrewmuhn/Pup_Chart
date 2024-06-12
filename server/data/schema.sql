@@ -42,22 +42,17 @@ CREATE TABLE "vaccine"(
     PRIMARY KEY("Vaccine")
 );
 
-DROP PROCEDURE IF EXISTS fetch_pets_by_user;
+DROP PROCEDURE IF EXISTS insert_pets;
 
-CREATE OR REPLACE FUNCTION fetch_pets_by_user(user_id_input BIGINT)
-RETURNS TABLE (
-    id INTEGER,
-    user_id BIGINT,
-    name VARCHAR(255),
-    breed VARCHAR(255),
-    birthdate DATE,
-    profile_picture VARCHAR(255)
-) AS $$
-BEGIN
-    RETURN QUERY
-    SELECT id, user_id, name, breed, birthdate, profile_picture
-    FROM pets
-    WHERE user_id = user_id_input;
-END;
-$$ LANGUAGE plpgsql;
+CREATE or REPLACE PROCEDURE insert_pets()
+LANGUAGE SQL
+AS $$
+INSERT INTO "pets"("user_id", "name", "birthdate", "breed", "profile_picture")
+VALUES 
+   (1, 'Airbud', '2018-01-01', 'Golden Retriever', 'airbud.png'),
+    (1, 'Clifford', '2019-01-01', 'Red', 'clifford.png'),
+    (3, 'Scooby Doo', '2020-01-01', 'Great Dane', 'beagle.jpg'),
+    (1, 'Courage', '2017-01-01', 'Beagle', 'courage.png'),
+    (2, 'Balto', '2016-01-01', 'husky', 'rottweiler.jpg');
+$$;
 

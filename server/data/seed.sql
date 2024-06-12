@@ -16,13 +16,7 @@ VALUES (
         'password789'
     );
 -- Inserting pets for each user
-INSERT INTO "pets"("user_id", "name", "birthdate", "breed", "profile_picture")
-VALUES 
-   (1, 'Airbud', '2018-01-01', 'Golden Retriever', 'airbud.png'),
-    (1, 'Clifford', '2019-01-01', 'Red', 'clifford.png'),
-    (3, 'Scooby Doo', '2020-01-01', 'Great Dane', 'beagle.jpg'),
-    (1, 'Courage', '2017-01-01', 'Beagle', 'courage.png'),
-    (2, 'Balto', '2016-01-01', 'husky', 'rottweiler.jpg');
+CALL insert_pets();
 
 -- Inserting medication for each pet
 INSERT INTO "medication"("name", "time_of_day", "with_food", "pet_id")
