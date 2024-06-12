@@ -16,7 +16,7 @@ describe('API calls with pet', () => {
       name: 'Buddy',
       breed: 'Labrador',
       birthdate: '2022-01-01',
-      profile_picture: 'buddy.png',
+      profile_picture: '/images/buddy.png',
     };
     const res = await request(app).post('/api/pets').send(newPet);
     expect(res.status).toBe(201);
@@ -37,7 +37,7 @@ describe('API calls with pet', () => {
         breed: 'Golden Retriever',
         id: 1,
         name: 'Airbud',
-        profile_picture: 'airbud.png',
+        profile_picture: '/images/airbud.png',
         user_id: '1',
       },
     ]);
@@ -58,7 +58,7 @@ describe('API calls with pet', () => {
         name: 'Balto',
         breed: 'husky',
         birthdate: '2016-01-01',
-        profile_picture: 'rottweiler.jpg',
+        profile_picture: '/images/rottweiler.jpg',
       },
     ]);
   });

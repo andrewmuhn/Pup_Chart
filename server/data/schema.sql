@@ -49,10 +49,10 @@ LANGUAGE SQL
 AS $$
 INSERT INTO "pets"("user_id", "name", "birthdate", "breed", "profile_picture")
 VALUES 
-   (1, 'Airbud', '2018-01-01', 'Golden Retriever', 'airbud.png'),
-    (1, 'Clifford', '2019-01-01', 'Red', 'clifford.png'),
-    (3, 'Scooby Doo', '2020-01-01', 'Great Dane', 'beagle.jpg'),
-    (1, 'Courage', '2017-01-01', 'Beagle', 'courage.png'),
-    (2, 'Balto', '2016-01-01', 'husky', 'rottweiler.jpg');
+   (1, 'Airbud', '2018-01-01', 'Golden Retriever', '/images/airbud.png'),
+    (1, 'Clifford', '2019-01-01', 'Red', '/images/clifford.png'),
+    (3, 'Scooby Doo', '2020-01-01', 'Great Dane', '/images/beagle.jpg'),
+    (1, 'Courage', '2017-01-01', 'Beagle', '/images/courage.png'),
+    (2, 'Balto', '2016-01-01', 'husky', '/images/rottweiler.jpg');
 $$;
 
