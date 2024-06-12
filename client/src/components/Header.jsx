@@ -3,14 +3,9 @@ import { Link } from 'react-router-dom';
 export function Header({ authenticated, onLogout }) {
   return (
     <header className="bg-light p-3 d-flex justify-content-between align-items-center position-relative">
-      <img
-        src={'/images/logo.png'}
-        className="App-logo d-inline-block"
-        alt="logo"
-      />
-
+      <img src={'/images/logo.png'} className="App-logo" alt="logo" />
       <h1
-        className="d-inline-block"
+        className="header-title"
         style={{
           fontWeight: 700,
           position: 'absolute',
