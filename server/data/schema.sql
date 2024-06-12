@@ -41,3 +41,18 @@ CREATE TABLE "vaccine"(
     CONSTRAINT "vaccine_pet_id_foreign" FOREIGN KEY("pet_id") REFERENCES "pets"("id"),
     PRIMARY KEY("Vaccine")
 );
+
+DROP PROCEDURE IF EXISTS insert_pets;
+
+CREATE or REPLACE PROCEDURE insert_pets()
+LANGUAGE SQL
+AS $$
+INSERT INTO "pets"("user_id", "name", "birthdate", "breed", "profile_picture")
+VALUES 
+   (1, 'Airbud', '2018-01-01', 'Golden Retriever', 'airbud.png'),
+    (1, 'Clifford', '2019-01-01', 'Red', 'clifford.png'),
+    (3, 'Scooby Doo', '2020-01-01', 'Great Dane', 'beagle.jpg'),
+    (1, 'Courage', '2017-01-01', 'Beagle', 'courage.png'),
+    (2, 'Balto', '2016-01-01', 'husky', 'rottweiler.jpg');
+$$;
+

@@ -23,7 +23,7 @@ router.get('/', (_req, res) => {
   });
 });
 
-// GET pets by user ID route
+// GET pets by user ID
 router.get('/:userId', (req, res) => {
   const userId = req.params.userId;
   pool.query(
@@ -37,7 +37,6 @@ router.get('/:userId', (req, res) => {
     },
   );
 });
-
 // GET pets by pet ID route
 router.get('/pet/:petId', (req, res) => {
   const petId = req.params.petId;
