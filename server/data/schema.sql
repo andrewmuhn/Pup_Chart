@@ -42,8 +42,22 @@ CREATE TABLE "vaccine"(
     PRIMARY KEY("Vaccine")
 );
 
-CREATE OR REPLACE PROCEDURE fetch_pets_by_user(user_id_input INT)
-LANGUAGE SQL
-AS $$
-SELECT * FROM pets WHERE user_id = user_id_input;
-$$;
+DROP PROCEDURE IF EXISTS fetch_pets_by_user;
+
+CREATE OR REPLACE FUNCTION fetch_pets_by_user(user_id_input BIGINT)
+RETURNS TABLE (
+    id INTEGER,
+    user_id BIGINT,
+    name VARCHAR(255),
+    breed VARCHAR(255),
+    birthdate DATE,
+    profile_picture VARCHAR(255)
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT id, user_id, name, breed, birthdate, profile_picture
+    FROM pets
+    WHERE user_id = user_id_input;
+END;
+$$ LANGUAGE plpgsql;
+
