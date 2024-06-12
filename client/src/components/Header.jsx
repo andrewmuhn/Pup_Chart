@@ -7,7 +7,6 @@ export function Header({ authenticated, onLogout }) {
         src={'/images/logo.png'}
         className="App-logo d-inline-block"
         alt="logo"
-        style={{ width: '50px', height: '50px' }}
       />
 
       <h1
