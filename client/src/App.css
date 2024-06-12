@@ -45,7 +45,8 @@ body {
   width: 100%;
   padding: 10px;
   border-radius: 4px;
-  background-color: #007bff;
+  background-color: #17a2b8;
+  border-color: #17a2b8;
   color: #ffffff;
   border: #ffffff;
   cursor: pointer;
@@ -159,5 +160,29 @@ h2 {
 .add-pet:hover {
   background-color: #138496;
   border-color: #138496;
+  color: white;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #17a2b8;
+  border-color: #17a2b8;
+}
+
+.btn-danger {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-primary:hover{
+  background-color: #138496;
+  border-color: #138496;
+  color: white;
+}
+
+.btn-danger:hover{
+  background-color: #c82333;
+  border-color: #c82333;
   color: white;
 }
