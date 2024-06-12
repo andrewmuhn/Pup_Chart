@@ -71,21 +71,22 @@ h1 {
   text-align: center;
   margin-top: 30px;
   margin-bottom: 30px;
-  color: white;
+  font-size: calc(1.575rem + 1.5vw);
 }
 
 h2 {
   text-align: center;
   margin-top: 20px;
   margin-bottom: 20px;
-  font-size: 18px;
+  font-size: 25px;
 }
 
 .company-logo {
   display: block;
   margin: 0 auto;
-  width: 600px;
+  width: 300px;
   margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .background {
@@ -110,16 +111,16 @@ h2 {
   z-index: 0;
 }
 
-h2,
-h3,
-p {
-  color: white;
-}
-
 .btn-info {
   color: #fff;
   background-color: #17a2b8;
   border-color: #17a2b8;
+  margin: 5px;
+}
+.card {
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .card-text {
@@ -129,10 +130,23 @@ p {
 .card-img-top {
   height: 200px;
   width: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .pet-image {
   height: 70%;
   width: 28%;
+}
+
+.home-link {
+  color: white;
+}
+
+.add-pet {
+  font-size: large;
+  padding: 15px;
+}
+
+.home-h1 {
+  color: white;
 }

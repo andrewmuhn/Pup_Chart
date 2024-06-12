@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
-import calculateAge from '../utils/calculateAge';
 import { Button } from 'react-bootstrap';
 import { fetchPetsByUser, deletePet } from '../utils/api/petCalls';
 
 function PetCards() {
   const [pets, setPets] = useState([]);
+  const [noPets, setNoPets] = useState(false);
   const user = localStorage.getItem('user');
   const jwt = localStorage.getItem('jwt');
 
@@ -14,6 +14,9 @@ function PetCards() {
     fetchPetsByUser(user)
       .then((response) => {
         setPets(response.data);
+        if (response.data.length === 0) {
+          setNoPets(true);
+        }
       })
       .catch((error) => {
         console.error('Error fetching pets:', error);
@@ -28,6 +31,11 @@ function PetCards() {
   return (
     <div className="container mt-5">
       <div className="row">
+        {noPets && (
+          <div className="col-md-12">
+            <h2>No pets found!</h2>
+          </div>
+        )}
         {jwt &&
           pets.map((pet) => (
             <div className="col-md-4" key={pet.id}>
@@ -38,15 +46,8 @@ function PetCards() {
                   alt={pet.name}
                 />
                 <div className="card-body">
-                  <h5 className="card-title">{pet.name}</h5>
-                  <p className="card-text">
-                    Breed: {pet.breed}
-                    <br />
-                    Birthdate:{' '}
-                    {new Date(pet.birthdate).toLocaleDateString()}
-                    <br />
-                    Age: {calculateAge(pet.birthdate)} years
-                  </p>
+                  <h4 className="card-title">{pet.name}</h4>
+
                   <Link
                     to={`/pets/${pet.id}`}
                     className="btn btn-info"

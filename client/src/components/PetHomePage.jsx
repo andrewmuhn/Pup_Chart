@@ -1,4 +1,9 @@
-import { useEffect, useState, useRef, useContext } from 'react';
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useContext,
+} from 'react';
 import AddDaycarePlanModal from './AddDaycarePlanModal';
 import ViewDaycarePlanModal from './ViewDaycarePlanModal';
 import PetContext from '../contexts/PetContext';
@@ -76,18 +81,22 @@ export function PetHomePage() {
 
   return (
     <>
-      <h1>{name || 'loading..'}</h1>
-      <div className="row mt-4">
-        <div className="col text-center">
-          <img
-            src={imageUrl || 'loading..'}
-            className="card-img-top pet-image"
-            alt={name || 'loading..'}
-          />
-          <h3>{breed || 'loading..'}</h3>
-          <p>Age: {age || 'loading..'}</p>
-          <p>Birthdate: {formattedBirthdate || 'loading..'}</p>
-          {renderButton()}
+      <div className="container d-flex justify-content-center align-items-center vh-100">
+        <div className="col-md-4">
+          <div className="card text-center">
+            <h1 className="card-title">{name}</h1>
+            <img
+              src={imageUrl || 'loading..'}
+              className="card-img-top"
+              alt={name || 'loading..'}
+            />
+            <div className="card-body">
+              <h3>{breed || 'loading..'}</h3>
+              <p>Age: {age || 'loading..'}</p>
+              <p>Birthdate: {formattedBirthdate || 'loading..'}</p>
+              {renderButton()}
+            </div>
+          </div>
         </div>
         <AddDaycarePlanModal
           show={showAddDaycare}
