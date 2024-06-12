@@ -175,14 +175,21 @@ h2 {
   border-color: #dc3545;
 }
 
-.btn-primary:hover{
+.btn-primary:hover {
   background-color: #138496;
   border-color: #138496;
   color: white;
 }
 
-.btn-danger:hover{
+.btn-danger:hover {
   background-color: #c82333;
   border-color: #c82333;
   color: white;
+}
+
+@media (max-width: 768px) {
+  .App-logo,
+  .header-title {
+    display: none;
+  }
 }
