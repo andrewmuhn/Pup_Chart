@@ -1,3 +1,5 @@
+require('dotenv').config({ path: './.env' });
+
 module.exports = {
   // Specify directories where Jest should look for tests
   roots: ['<rootDir>/client/tests', '<rootDir>/server/tests'],
