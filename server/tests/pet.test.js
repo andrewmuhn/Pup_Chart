@@ -32,11 +32,11 @@ describe('API calls with pet', () => {
     expect(res.status).toBe(200);
     expect(res.body).toEqual([
       {
-        birthdate: '2022-01-01T05:00:00.000Z',
-        breed: 'Labrador',
+        birthdate: '2018-01-01T05:00:00.000Z',
+        breed: 'Golden Retriever',
         id: 1,
-        name: 'Buddy',
-        profile_picture: 'buddy.png',
+        name: 'Airbud',
+        profile_picture: 'airbud.png',
         user_id: '1',
       },
     ]);
