@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { postNewPet, uploadPetImage } from '../utils/api/petCalls';
 import dogBreeds from '../utils/dogBreeds';
+import axios from 'axios';
 
 function AddPetModal({ show, handleClose }) {
   const [formData, setFormData] = useState({
@@ -25,13 +26,33 @@ function AddPetModal({ show, handleClose }) {
 
   const handleSave = async (e) => {
     e.preventDefault();
+    if (!formData.profile_picture) {
+      const breed = formData.breed.toLowerCase();
+      try {
+        const response = await axios.get(
+          `https://dog.ceo/api/breed/${breed}/images/random`,
+        );
+
+        if (response.data.status === 'success') {
+          formData.profile_picture = response.data.message;
+        } else {
+          throw new Error('Failed to fetch image');
+        }
+      } catch (error) {
+        console.error('Error fetching image:', error);
+        formData.profile_picture = '/images/logo.png';
+      }
+    } else {
+      formData.profile_picture =
+        '/images/' + formData.profile_picture;
+    }
 
     const params = {
       user_id: localStorage.getItem('user'),
       name: formData.name,
       breed: formData.breed,
       birthdate: formData.birthdate,
-      profile_picture: formData.profile_picture || 'logo.png',
+      profile_picture: formData.profile_picture,
     };
 
     postNewPet(params);

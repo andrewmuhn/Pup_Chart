@@ -22,7 +22,7 @@ export function PetHomePage() {
   const { pet, setPet } = useContext(PetContext);
   const [daycarePlan, setDaycarePlan] = useState([]);
   const { name, profile_picture, breed, birthdate } = pet;
-  const imageUrl = `/images/${profile_picture}`;
+  const imageUrl = `${profile_picture}`;
   const age = calculateAge(birthdate);
   const formattedBirthdate = new Date(birthdate).toLocaleDateString();
 
