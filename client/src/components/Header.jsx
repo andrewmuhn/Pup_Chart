@@ -30,18 +30,18 @@ export function Header({ authenticated, onLogout }) {
             />
           </Link>
           {!authenticated && (
-            <Link className="btn btn-primary mx-2" to="/signup">
-              Signup
+            <Link className="custom-button mx-2" to="/signup">
+              Sign Up
             </Link>
           )}
           {!authenticated && (
-            <Link className="btn btn-success mx-2" to="/login">
+            <Link className="custom-button mx-2" to="/login">
               Login
             </Link>
           )}
           {authenticated && (
             <Link
-              className="btn btn-danger mx-2"
+              className="custom-button mx-2"
               onClick={onLogout}
               to="#"
             >

@@ -33,7 +33,7 @@ function PetCards() {
       <div className="row">
         {noPets && (
           <div className="col-md-12">
-            <h2>No pets found!</h2>
+            <h2 style={{ color: 'white' }}>No pets found!</h2>
           </div>
         )}
         {jwt &&

@@ -18,7 +18,7 @@ export function Login() {
     setErrors([]);
     const formData = new FormData(event.target);
     const params = Object.fromEntries(formData.entries());
-      postNewUserSession(params)
+    postNewUserSession(params)
       .then((response) => {
         console.log(response.data);
         axios.defaults.headers.common['Authorization'] =
@@ -37,27 +37,42 @@ export function Login() {
       });
   };
 
-return (
+  return (
     <div id="login">
-        <h1>Login</h1>
-        <ul>
-            {errors.map((error) => (
-                <li key={error}>{error}</li>
-            ))}
-        </ul>
-        <div className="form-container">
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Email address</label>
-                    <input name="email" type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="exampleInputPassword1">Password</label>
-                    <input name="password" type="password" className="form-control" id="exampleInputPassword1" required />
-                </div>
-                <button type="submit" className="my-btn btn-primary">Submit</button>
-            </form>
-        </div>    
+      <h1 className="h1-white">Login</h1>
+      <ul>
+        {errors.map((error) => (
+          <li key={error}>{error}</li>
+        ))}
+      </ul>
+      <div className="form-container">
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="exampleInputEmail1">Email address</label>
+            <input
+              name="email"
+              type="email"
+              className="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="exampleInputPassword1">Password</label>
+            <input
+              name="password"
+              type="password"
+              className="form-control"
+              id="exampleInputPassword1"
+              required
+            />
+          </div>
+          <button type="submit" className="my-btn btn-primary">
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
-);
+  );
 }
