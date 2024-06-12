@@ -1,13 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PetCards from './PetCards';
 import AddPetModal from './AddPetModal';
+import ViewShoppingListModal from './ViewShoppingListModal'
+import { fetchShoppingListByUser } from '../utils/api/petCalls';
 
 export function HomePage() {
-  const [show, setShow] = useState(false);
+  const [showAddPet, setShowAddPet] = useState(false);
+  const [showViewShopping, setShowViewShopping] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleAddPetClose = () => setShowAddPet(false);
+  const handleAddPetShow = () => setShowAddPet(true);
+  const handleViewShoppingClose = () => setShowViewShopping(false);
+  const handleViewShoppingShow = () => setShowViewShopping(true);
   const jwt = localStorage.getItem('jwt');
+
   return (
     <>
       {jwt ? (
@@ -17,12 +23,19 @@ export function HomePage() {
             <div className="col text-center">
               <button
                 className="btn btn-primary add-pet"
-                onClick={handleShow}
+                onClick={handleAddPetShow}
               >
                 Add Pet
               </button>
+              <button
+                className="btn btn-primary"
+                onClick={handleViewShoppingShow}
+              >
+                View Shopping List
+              </button>
             </div>
-            <AddPetModal show={show} handleClose={handleClose} />
+            <ViewShoppingListModal show={showViewShopping} handleClose={handleViewShoppingClose}/>
+            <AddPetModal show={showAddPet} handleClose={handleAddPetClose} />
           </div>
         </>
       ) : (

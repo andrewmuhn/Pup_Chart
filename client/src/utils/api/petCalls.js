@@ -48,3 +48,13 @@ export const deletePet = async (petId) => {
     console.error('Error fetching pet:', error);
   }
 };
+
+export const fetchShoppingListByUser = async (userId) => {
+  try {
+    return await axios.get(
+      `http://localhost:8083/api/pets/shopping/${userId}`,
+    );
+  } catch (error) {
+    console.error('Error fetching shopping list');
+  }
+};

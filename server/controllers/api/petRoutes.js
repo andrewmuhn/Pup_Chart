@@ -92,6 +92,20 @@ router.delete('/pet/:petId', (req, res) => {
   );
 });
 
+router.get('/shopping/:userId', (req, res) => {
+  const userId = req.params.userId;
+  pool.query(
+    'SELECT food FROM pets JOIN daycare_plan ON pets.id = daycare_plan.pet_id WHERE user_id = $1',
+    [userId],
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      res.status(200).json(results.rows);
+    },
+  );
+});
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, imageDir);
