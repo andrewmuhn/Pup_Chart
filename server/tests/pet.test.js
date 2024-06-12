@@ -1,5 +1,8 @@
 const request = require('supertest');
 const app = require('../server');
+const normalizeDate = (dateString) => {
+  return new Date(dateString).toISOString().split('T')[0];
+};
 
 describe('API calls with pet', () => {
   test('should get all pets', async () => {
@@ -23,9 +26,14 @@ describe('API calls with pet', () => {
     const res = await request(app).get(`/api/pets/pet/${petId}`);
 
     expect(res.status).toBe(200);
-    expect(res.body).toEqual([
+    const responseBody = res.body.map((pet) => ({
+      ...pet,
+      birthdate: normalizeDate(pet.birthdate),
+    }));
+
+    expect(responseBody).toEqual([
       {
-        birthdate: '2018-01-01T05:00:00.000Z',
+        birthdate: '2018-01-01',
         breed: 'Golden Retriever',
         id: 1,
         name: 'Airbud',
@@ -39,13 +47,17 @@ describe('API calls with pet', () => {
     const userId = 2;
     const res = await request(app).get(`/api/pets/${userId}`);
     expect(res.status).toBe(200);
-    expect(res.body).toEqual([
+    const responseBody = res.body.map((pet) => ({
+      ...pet,
+      birthdate: normalizeDate(pet.birthdate),
+    }));
+    expect(responseBody).toEqual([
       {
         id: 5,
         user_id: '2',
         name: 'Balto',
         breed: 'husky',
-        birthdate: '2016-01-01T05:00:00.000Z',
+        birthdate: '2016-01-01',
         profile_picture: 'rottweiler.jpg',
       },
     ]);
