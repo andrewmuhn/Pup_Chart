@@ -54,7 +54,6 @@ router.put('/:daycare_id', (req, res) => {
       if (error) {
         throw error;
       }
-      console.log(results);
       res
         .status(200)
         .send(`Daycare plan modified with Id: ${results.rows[0].id}`);
