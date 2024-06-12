@@ -13,27 +13,27 @@ const pool = new Pool({
 const setupDb = async () => {
   try {
     const client = await pool.connect();
-    await client.query('DROP TABLE IF EXISTS "pets"');
-    await client.query('DROP TABLE IF EXISTS "users"');
-    await client.query(`
-          CREATE TABLE IF NOT EXISTS users (
-            id SERIAL PRIMARY KEY,
-            name VARCHAR(255) NOT NULL,
-            email VARCHAR(255) NOT NULL,
-            password VARCHAR(255) NOT NULL
-          );
-        `);
+    // await client.query('DROP TABLE IF EXISTS "pets"');
+    // await client.query('DROP TABLE IF EXISTS "users"');
+    // await client.query(`
+    //       CREATE TABLE IF NOT EXISTS users (
+    //         id SERIAL PRIMARY KEY,
+    //         name VARCHAR(255) NOT NULL,
+    //         email VARCHAR(255) NOT NULL,
+    //         password VARCHAR(255) NOT NULL
+    //       );
+    //     `);
 
-    await client.query(`
-          CREATE TABLE IF NOT EXISTS pets (
-            id SERIAL PRIMARY KEY,
-            user_id BIGINT NOT NULL,
-            name VARCHAR(255) NOT NULL,
-            breed VARCHAR(255) NOT NULL,
-            birthdate DATE NOT NULL,
-            profile_picture VARCHAR(255)
-          );
-        `);
+    // await client.query(`
+    //       CREATE TABLE IF NOT EXISTS pets (
+    //         id SERIAL PRIMARY KEY,
+    //         user_id BIGINT NOT NULL,
+    //         name VARCHAR(255) NOT NULL,
+    //         breed VARCHAR(255) NOT NULL,
+    //         birthdate DATE NOT NULL,
+    //         profile_picture VARCHAR(255)
+    //       );
+    //     `);
 
     client.release();
   } catch (err) {
