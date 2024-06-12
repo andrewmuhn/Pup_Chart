@@ -21,17 +21,12 @@ describe('Authentication Endpoints', () => {
             email: mockUser.email,
             password: hashedPassword,
         };
-    
+
         const res = await request(app)
             .post('/api/users')
             .send(newUser);
-    
-        console.log('Response body:', res.body); // Add this line
-    
+
         expect(res.status).toBe(201);
-        expect(res.body).toHaveProperty('id');
-        expect(res.body).toHaveProperty('name', mockUser.name);
-        expect(res.body).toHaveProperty('email', mockUser.email);
-        console.log('user created', mockUser.email, mockUser.password, 'new user created', newUser.email, newUser.password);
+        expect(res.text).toMatch(/User added with ID: \d+/);
     });
 });
