@@ -71,6 +71,28 @@ router.post('/', (req, res) => {
   );
 });
 
+// Delete route to delete pet
+router.delete('/pet/:petId', (req, res) => {
+  const petId = req.params.petId;
+  pool.query(
+    'DELETE FROM pets WHERE id = $1 RETURNING *',
+    [petId],
+    (error, results) => {
+      if (error) {
+        return res.status(500).send(error.message);
+      }
+      if (results.rowCount === 0) {
+        return res
+          .status(404)
+          .send(`Pet not found with ID: ${petId}`);
+      }
+      res
+        .status(200)
+        .send(`Pet deleted with ID: ${results.rows[0].id}`);
+    },
+  );
+});
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, imageDir);

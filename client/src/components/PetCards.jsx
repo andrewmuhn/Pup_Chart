@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import calculateAge from '../utils/calculateAge';
-import { fetchPetsByUser } from '../utils/api/petCalls';
+import { Button } from 'react-bootstrap';
+import { fetchPetsByUser, deletePet } from '../utils/api/petCalls';
 
 function PetCards() {
   const [pets, setPets] = useState([]);
@@ -10,7 +11,7 @@ function PetCards() {
   const jwt = localStorage.getItem('jwt');
 
   useEffect(() => {
-      fetchPetsByUser(user)
+    fetchPetsByUser(user)
       .then((response) => {
         setPets(response.data);
       })
@@ -18,6 +19,11 @@ function PetCards() {
         console.error('Error fetching pets:', error);
       });
   }, [user]);
+
+  const handleDeletePet = (petId) => {
+    deletePet(petId);
+    window.location.reload();
+  };
 
   return (
     <div className="container mt-5">
@@ -47,6 +53,12 @@ function PetCards() {
                   >
                     View Details
                   </Link>
+                  <Button
+                    onClick={() => handleDeletePet(pet.id)}
+                    className="btn btn-danger"
+                  >
+                    Remove Pet
+                  </Button>
                 </div>
               </div>
             </div>
