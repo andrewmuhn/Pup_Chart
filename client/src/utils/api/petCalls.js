@@ -38,3 +38,13 @@ export const uploadPetImage = async (data) => {
     console.error('Error uploading file:', error);
   }
 };
+
+export const deletePet = async (petId) => {
+  try {
+    return await axios.delete(
+      `http://localhost:8083/api/pets/pet/${petId}`,
+    );
+  } catch (error) {
+    console.error('Error fetching pet:', error);
+  }
+};
