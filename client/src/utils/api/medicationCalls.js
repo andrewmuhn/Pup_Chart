@@ -10,7 +10,7 @@ export const fetchMedicationByPetId = async (petId) => {
   }
 };
 
-export const postDaycarePlan = async (params) => {
+export const postMedication = async (params) => {
   try {
     return await axios.post(
       'http://localhost:8083/api/medication',
@@ -21,7 +21,7 @@ export const postDaycarePlan = async (params) => {
   }
 };
 
-export const editDaycarePlan = async (medicationId, params) => {
+export const editMedication = async (medicationId, params) => {
   try {
     return await axios.put(
       `http://localhost:8083/api/medication/${medicationId}`,
