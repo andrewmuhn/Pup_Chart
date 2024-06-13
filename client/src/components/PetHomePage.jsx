@@ -84,7 +84,7 @@ export function PetHomePage() {
       <div className="container d-flex justify-content-center align-items-center vh-100">
         <div className="col-md-4">
           <div className="card text-center">
-            <h1 className="card-title">{name}</h1>
+            <h1 className="card-title">{name || 'loading..'}</h1>
             <img
               src={imageUrl || 'loading..'}
               className="card-img-top"
