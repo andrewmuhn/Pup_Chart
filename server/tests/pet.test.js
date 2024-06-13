@@ -53,12 +53,20 @@ describe('API calls with pet', () => {
     }));
     expect(responseBody).toEqual([
       {
+        id: 3,
+        user_id: '2',
+        name: 'Scooby Doo',
+        breed: 'Great Dane',
+        birthdate: '2020-01-01',
+        profile_picture: '/images/Scooby-Doo.png',
+      },
+      {
         id: 5,
         user_id: '2',
-        name: 'Balto',
+        name: 'Cujo',
         breed: 'husky',
         birthdate: '2016-01-01',
-        profile_picture: '/images/rottweiler.jpg',
+        profile_picture: '/images/Cujo_the_St._Bernard.webp',
       },
     ]);
   });
