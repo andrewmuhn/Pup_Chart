@@ -10,8 +10,12 @@ describe('Daycare api endpoints', () => {
       expect(res.body[0]).toEqual({
         id: 3,
         pet_id: '3',
-        food: 'Food3',
-        walks: '1',
+        food: 'Scooby Snax',
+        walks: '4',
+        cat_friendly: true,
+        dog_friendly: false,
+        kid_friendly: true,
+        meal_schedule: 'breakfast-diner',
       });
     });
   });
