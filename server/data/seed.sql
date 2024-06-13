@@ -11,23 +11,23 @@ INSERT INTO "medication"(
 VALUES (
         'Miracle Drug',
         '2 1g pills',
-        CURRENT_DATE,
+        'morning',
         true,
         1
     ),
-    ('Skyrizi', '1 pill', CURRENT_DATE, false, 2),
-    ('Grass', 'Edibles', CURRENT_DATE, true, 3),
+    ('Skyrizi', '1 pill', 'morning-evening', false, 2),
+    ('Grass', 'Edibles', 'mid-day', true, 3),
     (
         'Amoxicillin',
         '1 20mg pill',
-        CURRENT_DATE,
+        'evening',
         false,
         4
     ),
     (
         'Rimadyl',
         '2 75mg chewable tablets',
-        CURRENT_DATE,
+        'mid-day',
         true,
         5
     );
