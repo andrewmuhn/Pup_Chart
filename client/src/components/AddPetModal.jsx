@@ -27,7 +27,12 @@ function AddPetModal({ show, handleClose }) {
   const handleSave = async (e) => {
     e.preventDefault();
     if (!formData.profile_picture) {
-      const breed = formData.breed.toLowerCase();
+      let breed = formData.breed.toLowerCase();
+      const words = breed.split(/\s+/);
+      if (words.length > 1) {
+        const lastWord = words.pop();
+        breed = [lastWord, ...words].join('/');
+      }
       try {
         const response = await axios.get(
           `https://dog.ceo/api/breed/${breed}/images/random`,
