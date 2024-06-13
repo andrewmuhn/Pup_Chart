@@ -44,7 +44,6 @@ const hashPasswords = async () => {
 };
 
 const insertUsers = async (users) => {
-  console.log(users);
   users.forEach(async (user) => {
     await client.query(`INSERT INTO "users"("name", "email", "password")
     VALUES (

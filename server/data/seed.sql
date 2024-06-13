@@ -44,47 +44,47 @@ INSERT INTO "daycare_plan"(
 VALUES (
         1,
         'Basket Balls',
-        'Morning, Afternoon',
+        'morning',
         false,
         true,
         true,
-        'Twice a day'
+        1
     ),
     (
         2,
         'Cows',
-        'Morning, Evening',
+        'mid-day',
         false,
         true,
         false,
-        'Once a day'
+        4
     ),
     (
         3,
         'Scooby Snax',
-        'Afternoon, Evening, Midnight',
+        'breakfast-diner',
         true,
         false,
         true,
-        'Twice a day'
+        4
     ),
     (
         4,
         'Bacon',
-        'Morning, Afternoon, Evening',
+        'evening',
         true,
         true,
         false,
-        'Three times a day'
+        8
     ),
     (
         5,
         'Humans',
-        'Morning, Evening',
+        'mid-day',
         false,
         false,
         false,
-        'Once a day'
+        1
     );
 -- Inserting vaccine for each pet
 -- INSERT INTO "vaccine"("Vaccine", "Date Issued", "pet_id", "Image")
