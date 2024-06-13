@@ -18,6 +18,20 @@ export default function ViewDaycarePlanModal({
   const [hospitals, setHospitals] = useState([]);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
+  const mealLabels = {
+    morning: 'Morning',
+    'mid-day': 'Mid-day',
+    evening: 'Evening',
+    'breakfast-dinner': 'Breakfast & Dinner',
+  };
+
+  const walksLabels = {
+    1: 'Every Hour',
+    2: 'Every 2 Hours',
+    4: 'Every 4 Hours',
+    8: 'Every 8 Hours',
+  };
+
   const fetchNearbyHospitals = useCallback(async () => {
     const apiUrl = `https://overpass-api.de/api/interpreter?data=[out:json];node[%22amenity%22=%22veterinary%22](around:8000,38.9219893,-77.2368027);out;`;
     try {
@@ -29,12 +43,10 @@ export default function ViewDaycarePlanModal({
       );
       setHospitals(vetFacilities);
       setIsDataLoaded(true);
-      console.log(vetFacilities, 'vets');
     } catch (error) {
       console.error('Error fetching nearby hospitals:', error);
     }
   }, []);
-
   useEffect(() => {
     if (isDataLoaded) {
       const generatePDF = async () => {
@@ -55,12 +67,38 @@ export default function ViewDaycarePlanModal({
         doc.text(
           `Daycare Plan for ${pet.name || 'loading..'}`,
           10,
-          20,
+          70,
         );
         doc.setFontSize(12);
-        doc.text(`Food: ${daycarePlan.food}`, 10, 30);
-        doc.text(`Walks: ${daycarePlan.walks}`, 10, 40);
-        doc.text(`List of nearby hospitals`, 10, 50);
+        console.log(
+          daycarePlan.dog_friendly,
+          daycarePlan.cat_friendly,
+          'cat and dogs',
+        );
+        doc.text(`Food: ${daycarePlan.food}`, 10, 80);
+        doc.text(`Walks: ${walksLabels[daycarePlan.walks]}`, 10, 90);
+        // Include all areas of the daycare plan
+        doc.text(
+          `Meal Schedule: ${mealLabels[daycarePlan.meal_schedule]}`,
+          10,
+          100,
+        );
+        doc.text(
+          `Cat Friendly: ${daycarePlan.cat_friendly ? 'Yes' : 'No'}`,
+          10,
+          110,
+        );
+        doc.text(
+          `Dog Friendly: ${daycarePlan.dog_friendly ? 'Yes' : 'No'}`,
+          10,
+          120,
+        );
+        doc.text(
+          `Kid Friendly: ${daycarePlan.kid_friendly ? 'Yes' : 'No'}`,
+          10,
+          130,
+        );
+        doc.text(`List of Nearby Pet Hospitals:`, 10, 150);
 
         hospitals.forEach((hospital, index) => {
           const name = hospital.name || 'Unnamed Veterinary Facility';
@@ -73,8 +111,8 @@ export default function ViewDaycarePlanModal({
             address = 'Address not available';
           }
           doc.setFontSize(12);
-          doc.text(`Name: ${name}`, 10, 60 + index * 20);
-          doc.text(`Address: ${address}`, 10, 70 + index * 20);
+          doc.text(`- ${name}`, 10, 160 + index * 15);
+          doc.text(`     ${address}`, 10, 165 + index * 15);
         });
 
         // Save the PDF
@@ -88,22 +126,14 @@ export default function ViewDaycarePlanModal({
     pet.name,
     daycarePlan.food,
     daycarePlan.walks,
+    daycarePlan.meal_schedule,
+    daycarePlan.cat_friendly,
+    daycarePlan.dog_friendly,
+    daycarePlan.kid_friendly,
     hospitals,
+    mealLabels,
+    walksLabels,
   ]);
-
-  const mealLabels = {
-    morning: 'Morning',
-    'mid-day': 'Mid-day',
-    evening: 'Evening',
-    'breakfast-dinner': 'Breakfast & Dinner',
-  };
-
-  const walksLabels = {
-    1: 'Every Hour',
-    2: 'Every 2 Hours',
-    4: 'Every 4 Hours',
-    8: 'Every 8 Hours',
-  };
 
   return (
     <>
@@ -120,13 +150,11 @@ export default function ViewDaycarePlanModal({
             </p>
             <p>
               <strong>Meal Schedule:</strong>{' '}
-              {mealLabels[daycarePlan.meal_schedule]}
-              <strong>Meal Schedule:</strong>{' '}
               {mealLabels[daycarePlan.meal_schedule] || 'loading..'}
             </p>
             <p>
               <strong>Walks:</strong>{' '}
-              {daycarePlan.walks || 'loading..'}
+              {walksLabels[daycarePlan.walks] || 'loading..'}
             </p>
             <p>
               <strong>Cat Friendly:</strong>{' '}
