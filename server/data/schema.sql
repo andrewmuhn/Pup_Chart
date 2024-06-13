@@ -22,7 +22,7 @@ CREATE TABLE "medication"(
     "id" SERIAL PRIMARY KEY,
     "name" VARCHAR(255) NOT NULL,
     "dose" VARCHAR(255) NOT NULL,
-    "time_of_day" DATE NOT NULL,
+    "time_of_day" VARCHAR(255) NOT NULL,
     "with_food" BOOLEAN NOT NULL,
     "pet_id" BIGINT NOT NULL,
     CONSTRAINT "medication_pet_id_foreign" FOREIGN KEY("pet_id") REFERENCES "pets"("id")
