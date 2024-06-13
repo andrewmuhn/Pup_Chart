@@ -70,14 +70,14 @@ VALUES (
         '/images/clifford.png'
     ),
     (
-        3,
+        2,
         'Scooby Doo',
         '2020-01-01',
         'Great Dane',
-        '/images/beagle.jpg'
+        '/images/Scooby-Doo.png'
     ),
     (
-        1,
+        3,
         'Courage',
         '2017-01-01',
         'Beagle',
@@ -85,9 +85,9 @@ VALUES (
     ),
     (
         2,
-        'Balto',
+        'Cujo',
         '2016-01-01',
         'husky',
-        '/images/rottweiler.jpg'
+        '/images/Cujo_the_St._Bernard.webp'
     );
 $$;
