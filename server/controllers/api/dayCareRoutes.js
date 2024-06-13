@@ -25,10 +25,10 @@ router.get('/:pet_id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  const { food, walks, pet_id } = req.body;
+  const { food, walks, meal_schedule, cat_friendly, dog_friendly, kid_friendly, pet_id } = req.body;
   pool.query(
-    'INSERT INTO daycare_plan (food, walks, pet_id) VALUES ($1, $2, $3) RETURNING *',
-    [food, walks, pet_id],
+    'INSERT INTO daycare_plan (food, walks, meal_schedule, cat_friendly, dog_friendly, kid_friendly, pet_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
+    [food, walks, meal_schedule, cat_friendly, dog_friendly, kid_friendly, pet_id],
     (error, results) => {
       if (error) {
         throw error;
@@ -42,10 +42,10 @@ router.post('/', (req, res) => {
 
 router.put('/:daycare_id', (req, res) => {
   const daycare_id = parseInt(req.params.daycare_id);
-  const { food, walks } = req.body;
+  const { food, walks, meal_schedule, cat_friendly, dog_friendly, kid_friendly } = req.body;
   pool.query(
-    'UPDATE daycare_plan SET food = $1, walks = $2 WHERE id = $3 RETURNING *',
-    [food, walks, daycare_id],
+    'UPDATE daycare_plan SET food = $1, walks = $2, meal_schedule = $3, cat_friendly = $4, dog_friendly = $5, kid_friendly = $6  WHERE id = $7 RETURNING *',
+    [food, walks, meal_schedule, cat_friendly, dog_friendly, kid_friendly, daycare_id],
     (error, results) => {
       if (error) {
         throw error;
