@@ -21,6 +21,7 @@ CREATE TABLE "pets"(
 CREATE TABLE "medication"(
     "id" SERIAL PRIMARY KEY,
     "name" VARCHAR(255) NOT NULL,
+    "dose" VARCHAR(255) NOT NULL,
     "time_of_day" DATE NOT NULL,
     "with_food" BOOLEAN NOT NULL,
     "pet_id" BIGINT NOT NULL,
@@ -30,7 +31,11 @@ CREATE TABLE "daycare_plan"(
     "id" SERIAL PRIMARY KEY,
     "pet_id" BIGINT NOT NULL,
     "food" VARCHAR(255) NULL,
-    "walks" BIGINT NULL,
+    "meal_schedule" VARCHAR(255) NULL,
+    "cat_friendly" BOOLEAN NOT NULL,
+    "dog_friendly" BOOLEAN NOT NULL,
+    "kid_friendly" BOOLEAN NOT NULL,
+    "walks" VARCHAR(255) NULL,
     CONSTRAINT "daycare_plan_pet_id_foreign" FOREIGN KEY("pet_id") REFERENCES "pets"("id")
 );
 CREATE TABLE "vaccine"(
@@ -41,18 +46,48 @@ CREATE TABLE "vaccine"(
     CONSTRAINT "vaccine_pet_id_foreign" FOREIGN KEY("pet_id") REFERENCES "pets"("id"),
     PRIMARY KEY("Vaccine")
 );
-
 DROP PROCEDURE IF EXISTS insert_pets;
-
-CREATE or REPLACE PROCEDURE insert_pets()
-LANGUAGE SQL
-AS $$
-INSERT INTO "pets"("user_id", "name", "birthdate", "breed", "profile_picture")
-VALUES 
-   (1, 'Airbud', '2018-01-01', 'Golden Retriever', '/images/airbud.png'),
-    (1, 'Clifford', '2019-01-01', 'Red', '/images/clifford.png'),
-    (3, 'Scooby Doo', '2020-01-01', 'Great Dane', '/images/beagle.jpg'),
-    (1, 'Courage', '2017-01-01', 'Beagle', '/images/courage.png'),
-    (2, 'Balto', '2016-01-01', 'husky', '/images/rottweiler.jpg');
+CREATE or REPLACE PROCEDURE insert_pets() LANGUAGE SQL AS $$
+INSERT INTO "pets"(
+        "user_id",
+        "name",
+        "birthdate",
+        "breed",
+        "profile_picture"
+    )
+VALUES (
+        1,
+        'Airbud',
+        '2018-01-01',
+        'Golden Retriever',
+        '/images/airbud.png'
+    ),
+    (
+        1,
+        'Clifford',
+        '2019-01-01',
+        'Red',
+        '/images/clifford.png'
+    ),
+    (
+        3,
+        'Scooby Doo',
+        '2020-01-01',
+        'Great Dane',
+        '/images/beagle.jpg'
+    ),
+    (
+        1,
+        'Courage',
+        '2017-01-01',
+        'Beagle',
+        '/images/courage.png'
+    ),
+    (
+        2,
+        'Balto',
+        '2016-01-01',
+        'husky',
+        '/images/rottweiler.jpg'
+    );
 $$;
-
