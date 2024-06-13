@@ -120,6 +120,8 @@ export default function ViewDaycarePlanModal({
             </p>
             <p>
               <strong>Meal Schedule:</strong>{' '}
+              {mealLabels[daycarePlan.meal_schedule]}
+              <strong>Meal Schedule:</strong>{' '}
               {mealLabels[daycarePlan.meal_schedule] || 'loading..'}
             </p>
             <p>
