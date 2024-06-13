@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import PetCards from './PetCards';
 import AddPetModal from './AddPetModal';
 import ViewShoppingListModal from './ViewShoppingListModal'
@@ -7,12 +7,32 @@ import { fetchShoppingListByUser } from '../utils/api/petCalls';
 export function HomePage() {
   const [showAddPet, setShowAddPet] = useState(false);
   const [showViewShopping, setShowViewShopping] = useState(false);
+  const [shoppingList, setShoppingList] = useState([]);
+  const user = localStorage.getItem('user');
 
   const handleAddPetClose = () => setShowAddPet(false);
   const handleAddPetShow = () => setShowAddPet(true);
   const handleViewShoppingClose = () => setShowViewShopping(false);
   const handleViewShoppingShow = () => setShowViewShopping(true);
   const jwt = localStorage.getItem('jwt');
+
+  const renderShoppingButton = () => {
+   return shoppingList.length > 0 ? ( <button
+    className="btn btn-primary add-pet"
+    onClick={handleViewShoppingShow}
+  >
+    View Shopping List
+  </button>) : null;
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const shoppingResponse = await fetchShoppingListByUser(user);
+      setShoppingList(shoppingResponse.data);
+    }
+
+    fetchData()
+  }, [user]);
 
   return (
     <>
@@ -21,20 +41,17 @@ export function HomePage() {
           <PetCards />
           <div className="row mt-4">
             <div className="col text-center">
+              {renderShoppingButton()}
+              <br></br>
+              <br></br>
               <button
                 className="btn btn-primary add-pet"
                 onClick={handleAddPetShow}
               >
                 Add Pet
               </button>
-              <button
-                className="btn btn-primary"
-                onClick={handleViewShoppingShow}
-              >
-                View Shopping List
-              </button>
             </div>
-            <ViewShoppingListModal show={showViewShopping} handleClose={handleViewShoppingClose}/>
+            <ViewShoppingListModal show={showViewShopping} handleClose={handleViewShoppingClose} shoppingList={shoppingList}/>
             <AddPetModal show={showAddPet} handleClose={handleAddPetClose} />
           </div>
         </>
