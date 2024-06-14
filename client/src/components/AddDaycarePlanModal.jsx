@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { postDaycarePlan, editDaycarePlan } from '../utils/api/daycareCalls';
 import { Modal, Button, Form } from 'react-bootstrap';
 import PetContext from '../contexts/PetContext';
+import { mealLabels, walksLabels } from '../utils/daycareLabels';
 
 function AddDaycarePlanModal({ show, handleClose, daycarePlan }) {
   const { pet } = useContext(PetContext);
@@ -15,20 +16,6 @@ function AddDaycarePlanModal({ show, handleClose, daycarePlan }) {
     dog_friendly: daycarePlan ? daycarePlan.dog_friendly : false,
     kid_friendly: daycarePlan ? daycarePlan.kid_friendly : false,
   });
-
-  const mealLabels = {
-    'morning': 'Morning',
-    'mid-day': 'Mid-day',
-    'evening': 'Evening',
-    'breakfast-dinner': 'Breakfast & Dinner',
-  };
-
-  const walksLabels = {
-    1: 'Every Hour',
-    2: 'Every 2 Hours',
-    4: 'Every 4 Hours',
-    8: 'Every 8 Hours',
-  };
 
   const handleDaycarePost = async (params) => {
     try {

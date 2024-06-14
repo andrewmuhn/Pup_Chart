@@ -7,6 +7,7 @@ import React, {
 import { Modal, Button, Dropdown } from 'react-bootstrap';
 import { jsPDF } from 'jspdf';
 import PetContext from '../contexts/PetContext';
+import { mealLabels, walksLabels, timeLabels } from '../utils/daycareLabels';
 
 export default function ViewDaycarePlanModal({
   show,
@@ -18,25 +19,6 @@ export default function ViewDaycarePlanModal({
   const { pet } = useContext(PetContext);
   const [hospitals, setHospitals] = useState([]);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
-  const mealLabels = {
-    morning: 'Morning',
-    'mid-day': 'Mid-day',
-    evening: 'Evening',
-    'breakfast-dinner': 'Breakfast & Dinner',
-  };
-  const timeLabels = {
-    morning: 'Mornings',
-    'mid-day': 'Mid-day',
-    evening: 'Evenings',
-    'morning-evening': 'Mornings & Evenings',
-  };
-
-  const walksLabels = {
-    1: 'Every Hour',
-    2: 'Every 2 Hours',
-    4: 'Every 4 Hours',
-    8: 'Every 8 Hours',
-  };
 
   const renderDropdownList = (medications) => {
     if (!medications) {
@@ -77,7 +59,7 @@ export default function ViewDaycarePlanModal({
     if (isDataLoaded) {
       const generatePDF = async () => {
         const doc = new jsPDF();
-
+  
         // Set font for the document
         doc.setFont('Helvetica');
         doc.addImage(
@@ -88,7 +70,7 @@ export default function ViewDaycarePlanModal({
           50,
           50,
         );
-
+  
         doc.setFontSize(16);
         doc.text(
           `Daycare Plan for ${pet.name || 'loading..'}`,
@@ -125,7 +107,7 @@ export default function ViewDaycarePlanModal({
           130,
         );
         doc.text(`List of Nearby Pet Hospitals:`, 10, 150);
-
+  
         hospitals.forEach((hospital, index) => {
           const name = hospital.name || 'Unnamed Veterinary Facility';
           let address = `${hospital['addr:housenumber'] || ''} ${
@@ -140,14 +122,14 @@ export default function ViewDaycarePlanModal({
           doc.text(`- ${name}`, 10, 160 + index * 15);
           doc.text(`     ${address}`, 10, 165 + index * 15);
         });
-
+  
         // Save the PDF
         doc.save(`${pet.name}_daycare_plan.pdf`);
       };
-
+  
       generatePDF();
     }
-  }, [isDataLoaded, hospitals, mealLabels, walksLabels]);
+  }, [isDataLoaded, hospitals, mealLabels, walksLabels]);  
 
   return (
     <>
