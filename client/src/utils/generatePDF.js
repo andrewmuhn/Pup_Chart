@@ -1,25 +1,12 @@
 import jsPDF from 'jspdf';
 import { fetchDaycarePlanWithMedsByPetId } from './api/daycareCalls';
 import fetchNearbyHospitals from './fetchNearbyHospitals';
+import { mealLabels, walksLabels } from './daycareLabels';
 
 const generatePDF = async (petsArray) => {
   const doc = new jsPDF();
 
   const petsArrayLength = petsArray.length || 1;
-
-  const mealLabels = {
-    morning: 'Morning',
-    'mid-day': 'Mid-day',
-    evening: 'Evening',
-    'breakfast-dinner': 'Breakfast & Dinner',
-  };
-
-  const walksLabels = {
-    1: 'Every Hour',
-    2: 'Every 2 Hours',
-    4: 'Every 4 Hours',
-    8: 'Every 8 Hours',
-  };
 
   const nearbyHospitals = await fetchNearbyHospitals();
 

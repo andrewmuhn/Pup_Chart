@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Modal, Button, Dropdown } from 'react-bootstrap';
-
 import PetContext from '../contexts/PetContext';
+import { mealLabels, walksLabels, timeLabels } from '../utils/daycareLabels';
 import generatePDF from '../utils/generatePDF';
 
 export default function ViewDaycarePlanModal({
@@ -12,26 +12,6 @@ export default function ViewDaycarePlanModal({
   daycarePlan,
 }) {
   const { pet } = useContext(PetContext);
-
-  const mealLabels = {
-    morning: 'Morning',
-    'mid-day': 'Mid-day',
-    evening: 'Evening',
-    'breakfast-dinner': 'Breakfast & Dinner',
-  };
-  const timeLabels = {
-    morning: 'Mornings',
-    'mid-day': 'Mid-day',
-    evening: 'Evenings',
-    'morning-evening': 'Mornings & Evenings',
-  };
-
-  const walksLabels = {
-    1: 'Every Hour',
-    2: 'Every 2 Hours',
-    4: 'Every 4 Hours',
-    8: 'Every 8 Hours',
-  };
 
   const renderDropdownList = (medications) => {
     if (!medications) {
