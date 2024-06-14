@@ -58,7 +58,6 @@ router.post('/', (req, res) => {
 
 router.put('/:daycare_id', (req, res) => {
   const daycare_id = parseInt(req.params.daycare_id);
-  console.log(daycare_id);
 
   const {
     food,
