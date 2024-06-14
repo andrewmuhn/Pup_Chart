@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { postMedication, editMedication } from '../utils/api/medicationCalls';
+import {
+  postMedication,
+  editMedication,
+} from '../utils/api/medicationCalls';
 import { Modal, Button, Form } from 'react-bootstrap';
 import PetContext from '../contexts/PetContext';
 
@@ -15,9 +18,9 @@ function AddMedicationModal({ show, handleClose, medication }) {
   });
 
   const timeLabels = {
-    'morning': 'Morning',
+    morning: 'Morning',
     'mid-day': 'Mid-day',
-    'evening': 'Evening',
+    evening: 'Evening',
     'morning-evening': 'Morning and Evening',
   };
 
@@ -34,7 +37,10 @@ function AddMedicationModal({ show, handleClose, medication }) {
     try {
       const medicationId = medication.id;
       await editMedication(medicationId, params);
-      navigate(window.location.pathname, { state: { openModal: true }, replace: true });
+      navigate(window.location.pathname, {
+        state: { openModal: true },
+        replace: true,
+      });
       window.location.reload();
     } catch (error) {
       console.error(error);
@@ -56,11 +62,11 @@ function AddMedicationModal({ show, handleClose, medication }) {
   const handleEdit = (e) => {
     e.preventDefault();
     const params = {
-        pet_id: pet.id,
-        name: formData.name,
-        dose: formData.dose,
-        time_of_day: formData.time_of_day,
-        with_food: formData.with_food,
+      pet_id: pet.id,
+      name: formData.name,
+      dose: formData.dose,
+      time_of_day: formData.time_of_day,
+      with_food: formData.with_food,
     };
     handleMedicationEdit(params);
   };
@@ -74,8 +80,10 @@ function AddMedicationModal({ show, handleClose, medication }) {
   };
 
   const renderButton = () => {
-    return (medication && Object.keys(medication).length !== 0) ? (
-      <button className="btn btn-primary" onClick={handleEdit}>Edit Medication</button>
+    return medication && Object.keys(medication).length !== 0 ? (
+      <button className="btn btn-primary" onClick={handleEdit}>
+        Save Edit
+      </button>
     ) : (
       <button className="btn btn-primary" onClick={handleSave}>
         Add Medication
@@ -84,7 +92,7 @@ function AddMedicationModal({ show, handleClose, medication }) {
   };
 
   useEffect(() => {
-    if((medication && Object.keys(medication).length !== 0)) {
+    if (medication && Object.keys(medication).length !== 0) {
       setFormData({
         name: medication.name,
         dose: medication.dose,
@@ -104,7 +112,9 @@ function AddMedicationModal({ show, handleClose, medication }) {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Add Medication for {pet.name || 'loading..'}</Modal.Title>
+        <Modal.Title>
+          Medication for {pet.name || 'loading..'}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSave}>
@@ -128,7 +138,10 @@ function AddMedicationModal({ show, handleClose, medication }) {
               placeholder="Enter the dose of the medication"
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formMedicationTimeOfDay">
+          <Form.Group
+            className="mb-3"
+            controlId="formMedicationTimeOfDay"
+          >
             <Form.Label>Time Of Day</Form.Label>
             {Object.entries(timeLabels).map(([value, label]) => (
               <Form.Check
@@ -143,9 +156,17 @@ function AddMedicationModal({ show, handleClose, medication }) {
               />
             ))}
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formMedicationWithFood">
+          <Form.Group
+            className="mb-3"
+            controlId="formMedicationWithFood"
+          >
             <Form.Label>With Food?</Form.Label>
-            <Form.Check type='checkbox' name='with_food' onChange={handleChange} checked={formData.with_food} />
+            <Form.Check
+              type="checkbox"
+              name="with_food"
+              onChange={handleChange}
+              checked={formData.with_food}
+            />
           </Form.Group>
           {renderButton()}
         </Form>
