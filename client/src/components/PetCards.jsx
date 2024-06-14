@@ -36,45 +36,51 @@ function PetCards() {
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row">
-        {noPets && (
-          <div className="col-md-12">
-            <h2 style={{ color: 'white' }}>No pets found!</h2>
-          </div>
-        )}
-        {jwt &&
-          pets.map((pet) => (
-            <div className="col-md-4" key={pet.id}>
-              <div className="card">
-                <img
-                  src={pet.profile_picture}
-                  className="card-img-top"
-                  alt={pet.name}
-                />
-                <div className="card-body">
-                  <h4 className="card-title">{pet.name}</h4>
+    <div>
+      <div className="container mt-5">
+        <div className="row">
+          {noPets && (
+            <div className="col-md-12">
+              <h2 style={{ color: 'white' }}>No pets found!</h2>
+            </div>
+          )}
+          {jwt &&
+            pets.map((pet) => (
+              <div className="col-md-4" key={pet.id}>
+                <div className="card">
+                  <img
+                    src={pet.profile_picture}
+                    className="card-img-top"
+                    alt={pet.name}
+                  />
+                  <div className="card-body">
+                    <h4 className="card-title">{pet.name}</h4>
 
-                  <Link
-                    to={`/pets/${pet.id}`}
-                    className="btn btn-info"
-                  >
-                    View Details
-                  </Link>
-                  <Button
-                    onClick={() => handleDeletePet(pet.id)}
-                    className="btn btn-danger"
-                  >
-                    Remove Pet
-                  </Button>
+                    <Link
+                      to={`/pets/${pet.id}`}
+                      className="btn btn-info"
+                    >
+                      View Details
+                    </Link>
+                    <Button
+                      onClick={() => handleDeletePet(pet.id)}
+                      className="btn btn-danger"
+                    >
+                      Remove Pet
+                    </Button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+        </div>
       </div>
       {jwt && (
-        <div className="mt-3">
-          <Button onClick={handleDownloadPDF} variant="primary">
+        <div className="d-flex justify-content-center mt-5">
+          <Button
+            className="add-pet"
+            onClick={handleDownloadPDF}
+            variant="primary"
+          >
             Download Sitter's Guide PDF
           </Button>
         </div>

@@ -38,8 +38,8 @@ export function PetHomePage() {
   const handleShowAddDaycare = () => setShowAddDaycare(true);
   const handleCloseAddMedication = () => {
     setShowAddMedication(false);
-    setMedication(null)
-  }
+    setMedication(null);
+  };
   const handleShowAddMedication = () => setShowAddMedication(true);
   const handleCloseViewDaycare = () => setShowViewDaycare(false);
   const handleShowViewDaycare = () => setShowViewDaycare(true);
@@ -49,10 +49,10 @@ export function PetHomePage() {
   };
   const handleEditMedication = (med) => {
     console.log(med);
-    setMedication(med)
-    handleCloseViewDaycare()
-    handleShowAddMedication()
-  }
+    setMedication(med);
+    handleCloseViewDaycare();
+    handleShowAddMedication();
+  };
 
   const renderDaycareButton = () => {
     return daycarePlan ? (
@@ -81,7 +81,8 @@ export function PetHomePage() {
       const petResponse = await fetchPetData(id);
       setPet(petResponse.data[0]);
 
-      const daycarePlanResponse = await fetchDaycarePlanWithMedsByPetId(id);
+      const daycarePlanResponse =
+        await fetchDaycarePlanWithMedsByPetId(id);
       setDaycarePlan(daycarePlanResponse.data[0]);
 
       if (openModalRef.current) {
@@ -109,6 +110,8 @@ export function PetHomePage() {
               <p>Age: {age || 'loading..'}</p>
               <p>Birthdate: {formattedBirthdate || 'loading..'}</p>
               {renderDaycareButton()}
+              <br />
+              <br />
               <button
                 className="btn btn-primary"
                 onClick={handleShowAddMedication}

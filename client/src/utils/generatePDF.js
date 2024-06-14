@@ -42,51 +42,55 @@ const generatePDF = async (petsArray) => {
     const daycarePlan = daycarePlanResponse.data[0];
 
     doc.setFontSize(16);
-    doc.text(
-      `Daycare Plan for ${pet.name || 'loading..'}`,
-      10,
-      70 + index * 100,
-    );
-    doc.setFontSize(12);
-    doc.text(`Food: ${daycarePlan.food}`, 10, 80 + index * 100);
-    doc.text(
-      `Walks: ${walksLabels[daycarePlan.walks]}`,
-      10,
-      90 + index * 100,
-    );
-    // Include all areas of the daycare plan
-    doc.text(
-      `Meal Schedule: ${mealLabels[daycarePlan.meal_schedule]}`,
-      10,
-      100 + index * 100,
-    );
-    doc.text(
-      `Cat Friendly: ${daycarePlan.cat_friendly ? 'Yes' : 'No'}`,
-      10,
-      110 + index * 100,
-    );
-    doc.text(
-      `Dog Friendly: ${daycarePlan.dog_friendly ? 'Yes' : 'No'}`,
-      10,
-      120 + index * 100,
-    );
-    doc.text(
-      `Kid Friendly: ${daycarePlan.kid_friendly ? 'Yes' : 'No'}`,
-      10,
-      130 + index * 100,
-    );
+    if (daycarePlan) {
+      doc.text(
+        `Daycare Plan for ${pet.name || 'loading..'}`,
+        10,
+        70 + index * 100,
+      );
+      doc.setFontSize(12);
+      doc.text(`Food: ${daycarePlan.food}`, 10, 80 + index * 100);
+      doc.text(
+        `Walks: ${walksLabels[daycarePlan.walks]}`,
+        10,
+        90 + index * 100,
+      );
+      // Include all areas of the daycare plan
+      doc.text(
+        `Meal Schedule: ${mealLabels[daycarePlan.meal_schedule]}`,
+        10,
+        100 + index * 100,
+      );
+      doc.text(
+        `Cat Friendly: ${daycarePlan.cat_friendly ? 'Yes' : 'No'}`,
+        10,
+        110 + index * 100,
+      );
+      doc.text(
+        `Dog Friendly: ${daycarePlan.dog_friendly ? 'Yes' : 'No'}`,
+        10,
+        120 + index * 100,
+      );
+      doc.text(
+        `Kid Friendly: ${daycarePlan.kid_friendly ? 'Yes' : 'No'}`,
+        10,
+        130 + index * 100,
+      );
 
-    // Check if medications exist before displaying
-    if (daycarePlan.medications[0].id !== null) {
-      doc.text(`Medications:`, 10, 140 + index * 100);
-      daycarePlan.medications.forEach((med, medIndex) => {
-        const foodText = med.with_food ? 'with food' : 'without food';
-        doc.text(
-          `-  ${med.dose} ${med.name} given at ${med.time_of_day} ${foodText}`,
-          15,
-          145 + index * 100 + medIndex * 10,
-        );
-      });
+      // Check if medications exist before displaying
+      if (daycarePlan.medications[0].id !== null) {
+        doc.text(`Medications:`, 10, 140 + index * 100);
+        daycarePlan.medications.forEach((med, medIndex) => {
+          const foodText = med.with_food
+            ? 'with food'
+            : 'without food';
+          doc.text(
+            `-  ${med.dose} ${med.name} given at ${med.time_of_day} ${foodText}`,
+            15,
+            145 + index * 100 + medIndex * 10,
+          );
+        });
+      }
     }
   }
 
