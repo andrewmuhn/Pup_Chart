@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { postDaycarePlan, editDaycarePlan } from '../utils/api/daycareCalls';
+import {
+  postDaycarePlan,
+  editDaycarePlan,
+} from '../utils/api/daycareCalls';
 import { Modal, Button, Form } from 'react-bootstrap';
 import PetContext from '../contexts/PetContext';
 import { mealLabels, walksLabels } from '../utils/daycareLabels';
@@ -30,7 +33,10 @@ function AddDaycarePlanModal({ show, handleClose, daycarePlan }) {
     try {
       const daycareId = daycarePlan.daycare_id;
       await editDaycarePlan(daycareId, params);
-      navigate(window.location.pathname, { state: { openModal: true }, replace: true });
+      navigate(window.location.pathname, {
+        state: { openModal: true },
+        replace: true,
+      });
       window.location.reload();
     } catch (error) {
       console.error(error);
@@ -75,7 +81,9 @@ function AddDaycarePlanModal({ show, handleClose, daycarePlan }) {
 
   const renderButton = () => {
     return daycarePlan ? (
-      <button className="btn btn-primary" onClick={handleEdit}>Edit Daycare Plan</button>
+      <button className="btn btn-primary" onClick={handleEdit}>
+        Save Edit
+      </button>
     ) : (
       <button className="btn btn-primary" onClick={handleSave}>
         Add Daycare Plan
@@ -84,7 +92,7 @@ function AddDaycarePlanModal({ show, handleClose, daycarePlan }) {
   };
 
   useEffect(() => {
-    if(daycarePlan) {
+    if (daycarePlan) {
       setFormData({
         food: daycarePlan.food,
         meal_schedule: daycarePlan.meal_schedule,
@@ -108,7 +116,9 @@ function AddDaycarePlanModal({ show, handleClose, daycarePlan }) {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Add Daycare Plan for {pet.name || 'loading..'}</Modal.Title>
+        <Modal.Title>
+          Daycare Plan for {pet.name || 'loading..'}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSave}>
@@ -122,7 +132,10 @@ function AddDaycarePlanModal({ show, handleClose, daycarePlan }) {
               placeholder="Enter the food your pet eats"
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formPetmeal_schedule">
+          <Form.Group
+            className="mb-3"
+            controlId="formPetmeal_schedule"
+          >
             <Form.Label>Meal Schedule</Form.Label>
             {Object.entries(mealLabels).map(([value, label]) => (
               <Form.Check
@@ -154,15 +167,30 @@ function AddDaycarePlanModal({ show, handleClose, daycarePlan }) {
           </Form.Group>
           <Form.Group className="mb-3" controlId="formPetCatFriendly">
             <Form.Label>Cat Friendly?</Form.Label>
-            <Form.Check type='checkbox' name='cat_friendly' onChange={handleChange} checked={formData.cat_friendly} />
+            <Form.Check
+              type="checkbox"
+              name="cat_friendly"
+              onChange={handleChange}
+              checked={formData.cat_friendly}
+            />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formPetDogFriendly">
             <Form.Label>Dog Friendly?</Form.Label>
-            <Form.Check type='checkbox' name='dog_friendly' onChange={handleChange} checked={formData.dog_friendly} />
+            <Form.Check
+              type="checkbox"
+              name="dog_friendly"
+              onChange={handleChange}
+              checked={formData.dog_friendly}
+            />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formPetKidFriendly">
             <Form.Label>Kid Friendly?</Form.Label>
-            <Form.Check type='checkbox' name='kid_friendly' onChange={handleChange} checked={formData.kid_friendly} />
+            <Form.Check
+              type="checkbox"
+              name="kid_friendly"
+              onChange={handleChange}
+              checked={formData.kid_friendly}
+            />
           </Form.Group>
           {renderButton()}
         </Form>
