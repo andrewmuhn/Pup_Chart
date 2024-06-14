@@ -37,7 +37,7 @@ export function Header({ authenticated, onLogout }) {
             <Link
               className="custom-button mx-2"
               onClick={onLogout}
-              to="#"
+              to="/"
             >
               Logout
             </Link>
