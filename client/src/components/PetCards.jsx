@@ -24,7 +24,6 @@ function PetCards() {
   }, [user]);
 
   const handleDeletePet = (petId) => {
-    console.log(petId, 'petid');
     deletePet(petId);
     window.location.reload();
   };
