@@ -19,7 +19,7 @@ CREATE TABLE "pets" (
     "birthdate" DATE NOT NULL,
     "profile_picture" VARCHAR(255),
     CONSTRAINT "pets_user_id_foreign" FOREIGN KEY ("user_id") REFERENCES "users" ("id")
-    ON DELETE CASCADE  -- Add ON DELETE CASCADE here
+    ON DELETE CASCADE  
 );
 
 CREATE TABLE "medication" (
@@ -30,7 +30,7 @@ CREATE TABLE "medication" (
     "with_food" BOOLEAN NOT NULL,
     "pet_id" BIGINT NOT NULL,
     CONSTRAINT "medication_pet_id_foreign" FOREIGN KEY ("pet_id") REFERENCES "pets" ("id")
-    ON DELETE CASCADE  -- Add ON DELETE CASCADE here
+    ON DELETE CASCADE  
 );
 
 CREATE TABLE "daycare_plan" (
@@ -43,7 +43,7 @@ CREATE TABLE "daycare_plan" (
     "kid_friendly" BOOLEAN NOT NULL,
     "walks" VARCHAR(255) NULL,
     CONSTRAINT "daycare_plan_pet_id_foreign" FOREIGN KEY ("pet_id") REFERENCES "pets" ("id")
-    ON DELETE CASCADE  -- Add ON DELETE CASCADE here
+    ON DELETE CASCADE  
 );
 
 CREATE TABLE "vaccine" (
@@ -52,7 +52,7 @@ CREATE TABLE "vaccine" (
     "pet_id" BIGINT NOT NULL,
     "Image" VARCHAR(255) NOT NULL,
     CONSTRAINT "vaccine_pet_id_foreign" FOREIGN KEY ("pet_id") REFERENCES "pets" ("id")
-    ON DELETE CASCADE,  -- Add ON DELETE CASCADE here
+    ON DELETE CASCADE,  
     PRIMARY KEY ("Vaccine")
 );
 
