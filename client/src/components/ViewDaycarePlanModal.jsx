@@ -121,19 +121,7 @@ export default function ViewDaycarePlanModal({
 
       generatePDF();
     }
-  }, [
-    isDataLoaded,
-    pet.name,
-    daycarePlan.food,
-    daycarePlan.walks,
-    daycarePlan.meal_schedule,
-    daycarePlan.cat_friendly,
-    daycarePlan.dog_friendly,
-    daycarePlan.kid_friendly,
-    hospitals,
-    mealLabels,
-    walksLabels,
-  ]);
+  }, [isDataLoaded, hospitals, mealLabels, walksLabels]);
 
   return (
     <>
