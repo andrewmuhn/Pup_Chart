@@ -7,38 +7,33 @@ function ViewShoppingListModal({ show, handleClose }) {
 
   const user = localStorage.getItem('user');
 
-const renderList = () => {
-  return shoppingList.map((item, index) => (
-
-    <Form.Check 
-      type="checkbox"
-      id={`default-checkbox-${index}`}
-      label={item.food}
-      key={index}
-    />
-  ));
-}
+  const renderList = () => {
+    return shoppingList.map((item, index) => (
+      <Form.Check
+        type="checkbox"
+        id={`default-checkbox-${index}`}
+        label={item.food}
+        key={index}
+      />
+    ));
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       const shoppingResponse = await fetchShoppingListByUser(user);
       setShoppingList(shoppingResponse.data);
-      // console.log(shoppingList);
-    }
+    };
 
-    fetchData()
+    fetchData();
   }, [user]);
 
   return (
     <Modal show={show} onHide={handleClose}>
-
       <Modal.Header closeButton>
         <Modal.Title>Shopping List</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
-          {renderList()}
-        </Form>
+        <Form>{renderList()}</Form>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>

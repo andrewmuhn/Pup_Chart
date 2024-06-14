@@ -8,7 +8,6 @@ export function Signup() {
     const params = Object.fromEntries(formData.entries());
     postNewUser(params)
       .then((response) => {
-        console.log(response.data);
         event.target.reset();
         window.location.href = 'http://localhost:3000/login'; // Change this to hide a modal, redirect to a specific page, etc.
       })
