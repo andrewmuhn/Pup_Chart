@@ -5,6 +5,8 @@ import fetchNearbyHospitals from './fetchNearbyHospitals';
 const generatePDF = async (petsArray) => {
   const doc = new jsPDF();
 
+  const petsArrayLength = petsArray.length || 1;
+
   const mealLabels = {
     morning: 'Morning',
     'mid-day': 'Mid-day',
@@ -32,8 +34,8 @@ const generatePDF = async (petsArray) => {
     50,
   );
 
-  for (let index = 0; index < petsArray.length; index++) {
-    const pet = petsArray[index];
+  for (let index = 0; index < petsArrayLength; index++) {
+    const pet = petsArray[index] || petsArray;
     const daycarePlanResponse = await fetchDaycarePlanWithMedsByPetId(
       pet.id,
     );
@@ -104,8 +106,8 @@ const generatePDF = async (petsArray) => {
       address = 'Address not available';
     }
     doc.setFontSize(12);
-    doc.text(`- ${name}`, 10, 45 + hospitalIndex * 10);
-    doc.text(`     ${address}`, 10, 50 + hospitalIndex * 10);
+    doc.text(`- ${name}`, 10, 50 + hospitalIndex * 10);
+    doc.text(`     ${address}`, 10, 55 + hospitalIndex * 10);
   });
 
   // Save the PDF
