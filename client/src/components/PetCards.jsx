@@ -3,16 +3,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { fetchPetsByUser, deletePet } from '../utils/api/petCalls';
+import generatePDF from '../utils/generatePDF';
 
 function PetCards() {
   const [pets, setPets] = useState([]);
   const [noPets, setNoPets] = useState(false);
+
   const user = localStorage.getItem('user');
   const jwt = localStorage.getItem('jwt');
 
   useEffect(() => {
     fetchPetsByUser(user)
       .then((response) => {
+        console.log(user, response, 'response');
         setPets(response.data);
         if (response.data.length === 0) {
           setNoPets(true);
@@ -26,6 +29,10 @@ function PetCards() {
   const handleDeletePet = (petId) => {
     deletePet(petId);
     window.location.reload();
+  };
+
+  const handleDownloadPDF = () => {
+    generatePDF(pets); // Call the generatePDF function with the pets array
   };
 
   return (
@@ -65,6 +72,13 @@ function PetCards() {
             </div>
           ))}
       </div>
+      {jwt && (
+        <div className="mt-3">
+          <Button onClick={handleDownloadPDF} variant="primary">
+            Download Sitter's Guide PDF
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
