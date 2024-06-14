@@ -32,8 +32,8 @@ function AddMedicationModal({ show, handleClose, medication }) {
 
   const handleMedicationEdit = async (params) => {
     try {
-      const daycareId = medication.id;
-      await editMedication(daycareId, params);
+      const medicationId = medication.id;
+      await editMedication(medicationId, params);
       navigate(window.location.pathname, { state: { openModal: true }, replace: true });
       window.location.reload();
     } catch (error) {
@@ -74,7 +74,7 @@ function AddMedicationModal({ show, handleClose, medication }) {
   };
 
   const renderButton = () => {
-    return medication ? (
+    return (medication && Object.keys(medication).length !== 0) ? (
       <button className="btn btn-primary" onClick={handleEdit}>Edit Medication</button>
     ) : (
       <button className="btn btn-primary" onClick={handleSave}>
@@ -84,7 +84,7 @@ function AddMedicationModal({ show, handleClose, medication }) {
   };
 
   useEffect(() => {
-    if(medication) {
+    if((medication && Object.keys(medication).length !== 0)) {
       setFormData({
         name: medication.name,
         dose: medication.dose,
