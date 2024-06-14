@@ -7,7 +7,6 @@ import PetContext from '../contexts/PetContext';
 function AddDaycarePlanModal({ show, handleClose, daycarePlan }) {
   const { pet } = useContext(PetContext);
   const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     food: daycarePlan ? daycarePlan.food : '',
     meal_schedule: daycarePlan ? daycarePlan.meal_schedule : '',
@@ -42,7 +41,7 @@ function AddDaycarePlanModal({ show, handleClose, daycarePlan }) {
 
   const handleDaycareEdit = async (params) => {
     try {
-      const daycareId = daycarePlan.id;
+      const daycareId = daycarePlan.daycare_id;
       await editDaycarePlan(daycareId, params);
       navigate(window.location.pathname, { state: { openModal: true }, replace: true });
       window.location.reload();

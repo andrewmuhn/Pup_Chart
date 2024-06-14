@@ -2,15 +2,12 @@ const router = require('express').Router();
 const pool = require('../../config/db');
 
 router.get('/', async (_req, res) => {
-  pool.query(
-    'SELECT pets.id AS pet_id, daycare_plan.id AS daycare_id, daycare_plan.food, daycare_plan.meal_schedule, daycare_plan.cat_friendly, daycare_plan.dog_friendly, daycare_plan.kid_friendly, daycare_plan.walks, medication.id AS medication_id, medication.name, medication.dose, medication.time_of_day, medication.with_food FROM pets JOIN daycare_plan on pets.id = daycare_plan.pet_id LEFT JOIN medication on pets.id = medication.pet_id;',
-    (error, results) => {
-      if (error) {
-        throw error;
-      }
-      res.status(200).json(results.rows);
-    },
-  );
+  pool.query('SELECT * FROM daycare_plan;', (error, results) => {
+    if (error) {
+      throw error;
+    }
+    res.status(200).json(results.rows);
+  });
 });
 
 router.get('/:pet_id', (req, res) => {
@@ -61,6 +58,8 @@ router.post('/', (req, res) => {
 
 router.put('/:daycare_id', (req, res) => {
   const daycare_id = parseInt(req.params.daycare_id);
+  console.log(daycare_id);
+
   const {
     food,
     walks,
@@ -103,6 +102,41 @@ router.delete('/:daycare_id', (req, res) => {
       res
         .status(200)
         .send(`Daycare plan deleted with Id: ${daycare_id}`);
+    },
+  );
+});
+
+router.get('/medications/:pet_id', (req, res) => {
+  const pet_id = parseInt(req.params.pet_id);
+  pool.query(
+    `SELECT pets.id AS pet_id,
+        daycare_plan.id AS daycare_id,
+        daycare_plan.food,
+        daycare_plan.meal_schedule,
+        daycare_plan.cat_friendly,
+        daycare_plan.dog_friendly,
+        daycare_plan.kid_friendly,
+        daycare_plan.walks,
+        json_agg(
+            json_build_object(
+                'id', medication.id,
+                'name', medication.name,
+                'dose', medication.dose,
+                'time_of_day', medication.time_of_day,
+                'with_food', medication.with_food
+            )
+        ) AS medications
+    FROM pets
+    JOIN daycare_plan ON pets.id = daycare_plan.pet_id
+    LEFT JOIN medication ON pets.id = medication.pet_id
+    WHERE pets.id = $1
+    GROUP BY pets.id, daycare_plan.id`,
+    [pet_id],
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      res.status(200).json(results.rows);
     },
   );
 });

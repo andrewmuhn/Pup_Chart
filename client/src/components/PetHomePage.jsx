@@ -13,14 +13,17 @@ import {
   useNavigate,
 } from 'react-router-dom';
 import { fetchPetData } from '../utils/api/petCalls';
-import { fetchDaycarePlanByPetId } from '../utils/api/daycareCalls';
+import { fetchDaycarePlanWithMedsByPetId } from '../utils/api/daycareCalls';
 import calculateAge from '../utils/calculateAge';
+import AddMedicationModal from './AddMedicationModal';
 
 export function PetHomePage() {
   const [showAddDaycare, setShowAddDaycare] = useState(false);
+  const [showAddMedication, setShowAddMedication] = useState(false);
   const [showViewDaycare, setShowViewDaycare] = useState(false);
   const { pet, setPet } = useContext(PetContext);
   const [daycarePlan, setDaycarePlan] = useState([]);
+  const [medication, setMedication] = useState({});
   const { name, profile_picture, breed, birthdate } = pet;
   const imageUrl = `${profile_picture}`;
   const age = calculateAge(birthdate);
@@ -33,14 +36,25 @@ export function PetHomePage() {
 
   const handleCloseAddDaycare = () => setShowAddDaycare(false);
   const handleShowAddDaycare = () => setShowAddDaycare(true);
+  const handleCloseAddMedication = () => {
+    setShowAddMedication(false);
+    setMedication(null)
+  }
+  const handleShowAddMedication = () => setShowAddMedication(true);
   const handleCloseViewDaycare = () => setShowViewDaycare(false);
   const handleShowViewDaycare = () => setShowViewDaycare(true);
-  const handleEdit = () => {
+  const handleEditDaycare = () => {
     handleCloseViewDaycare();
     handleShowAddDaycare();
   };
+  const handleEditMedication = (med) => {
+    console.log(med);
+    setMedication(med)
+    handleCloseViewDaycare()
+    handleShowAddMedication()
+  }
 
-  const renderButton = () => {
+  const renderDaycareButton = () => {
     return daycarePlan ? (
       <button
         className="btn btn-primary"
@@ -67,7 +81,7 @@ export function PetHomePage() {
       const petResponse = await fetchPetData(id);
       setPet(petResponse.data[0]);
 
-      const daycarePlanResponse = await fetchDaycarePlanByPetId(id);
+      const daycarePlanResponse = await fetchDaycarePlanWithMedsByPetId(id);
       setDaycarePlan(daycarePlanResponse.data[0]);
 
       if (openModalRef.current) {
@@ -94,7 +108,13 @@ export function PetHomePage() {
               <h3>{breed || 'loading..'}</h3>
               <p>Age: {age || 'loading..'}</p>
               <p>Birthdate: {formattedBirthdate || 'loading..'}</p>
-              {renderButton()}
+              {renderDaycareButton()}
+              <button
+                className="btn btn-primary"
+                onClick={handleShowAddMedication}
+              >
+                Add Medication
+              </button>
             </div>
           </div>
         </div>
@@ -108,7 +128,13 @@ export function PetHomePage() {
           show={showViewDaycare}
           handleClose={handleCloseViewDaycare}
           daycarePlan={daycarePlan}
-          handleEdit={handleEdit}
+          handleEditDaycare={handleEditDaycare}
+          handleEditMedication={handleEditMedication}
+        />
+        <AddMedicationModal
+          show={showAddMedication}
+          handleClose={handleCloseAddMedication}
+          medication={medication}
         />
       </div>
     </>
