@@ -31,3 +31,13 @@ export const editDaycarePlan = async (daycareId, params) => {
     console.error(error);
   }
 };
+
+export const fetchDaycarePlanWithMedsByPetId = async (petId) => {
+  try {
+    return await axios.get(
+      `http://localhost:8083/api/daycare/medications/${petId}`,
+    );
+  } catch (error) {
+    console.error(error);
+  }
+};

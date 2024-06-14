@@ -4,25 +4,31 @@ import React, {
   useEffect,
   useCallback,
 } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Dropdown } from 'react-bootstrap';
 import { jsPDF } from 'jspdf';
 import PetContext from '../contexts/PetContext';
 
 export default function ViewDaycarePlanModal({
   show,
   handleClose,
-  handleEdit,
-  daycarePlan,
+  handleEditDaycare,
+  handleEditMedication,
+  daycarePlan
 }) {
   const { pet } = useContext(PetContext);
   const [hospitals, setHospitals] = useState([]);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
-
   const mealLabels = {
     morning: 'Morning',
     'mid-day': 'Mid-day',
     evening: 'Evening',
     'breakfast-dinner': 'Breakfast & Dinner',
+  };
+  const timeLabels = {
+    morning: 'Mornings',
+    'mid-day': 'Mid-day',
+    evening: 'Evenings',
+    'morning-evening': 'Mornings & Evenings',
   };
 
   const walksLabels = {
@@ -31,6 +37,26 @@ export default function ViewDaycarePlanModal({
     4: 'Every 4 Hours',
     8: 'Every 8 Hours',
   };
+
+  const renderDropdownList = (medications) => {
+    if (!medications) {
+        return null;
+    }
+    return medications.map((med, index) => {
+      return (
+      <Dropdown.Item key={index} onClick={() => handleEditMedication(med)}>
+
+        <h5>{med.name}</h5>
+        <div style={{ paddingLeft: '20px' }}>
+            <p>Dose: {med.dose}</p>
+            <p>Time of Day: {timeLabels[med.time_of_day]}</p>
+            {med.with_food ? <p>With Food</p> : null}
+        </div>
+      </Dropdown.Item>
+      );
+  });
+
+}
 
   const fetchNearbyHospitals = useCallback(async () => {
     const apiUrl = `https://overpass-api.de/api/interpreter?data=[out:json];node[%22amenity%22=%22veterinary%22](around:8000,38.9219893,-77.2368027);out;`;
@@ -168,11 +194,19 @@ export default function ViewDaycarePlanModal({
               <strong>Kid Friendly:</strong>{' '}
               {daycarePlan.kid_friendly ? 'Yes' : 'No'}
             </p>
+            <Dropdown>
+              <Dropdown.Toggle variant="primary" id="dropdown-basic">
+                View Medications
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                {renderDropdownList(daycarePlan.medications)}
+              </Dropdown.Menu>
+            </Dropdown>
           </Modal.Body>
           <Modal.Footer>
             <Button
               variant="primary"
-              onClick={() => handleEdit(daycarePlan)}
+              onClick={() => handleEditDaycare(daycarePlan)}
             >
               Edit
             </Button>
