@@ -16,20 +16,13 @@ VALUES (
         1
     ),
     ('Skyrizi', '1 pill', 'morning-evening', false, 2),
-    ('Grass', 'Edibles', 'mid-day', true, 3),
+    ('Trazzy', '50mg pill', 'morning', true, 3),
     (
         'Amoxicillin',
         '1 20mg pill',
         'evening',
         false,
         4
-    ),
-    (
-        'Rimadyl',
-        '2 75mg chewable tablets',
-        'mid-day',
-        true,
-        5
     );
 -- Inserting daycare_plan for each pet
 INSERT INTO "daycare_plan"(
@@ -61,10 +54,10 @@ VALUES (
     ),
     (
         3,
-        'Scooby Snax',
-        'breakfast-diner',
-        true,
+        'Victor All Stage',
+        'breakfast-dinner',
         false,
+        true,
         true,
         4
     ),
@@ -79,11 +72,11 @@ VALUES (
     ),
     (
         5,
-        'Humans',
-        'mid-day',
-        false,
-        false,
-        false,
+        'Grass and Stix',
+        'breakfast-dinner',
+        true,
+        true,
+        true,
         1
     );
 -- Inserting vaccine for each pet
