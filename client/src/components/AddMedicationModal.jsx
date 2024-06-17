@@ -14,7 +14,7 @@ function AddMedicationModal({ show, handleClose, medication }) {
     name: medication ? medication.food : '',
     dose: medication ? medication.meal_schedule : '',
     time_of_day: medication ? medication.walks : '',
-    with_food: medication ? medication.cat_friendly : false,
+    with_food: medication ? medication.with_food : false,
   });
 
   const timeLabels = {
@@ -104,7 +104,7 @@ function AddMedicationModal({ show, handleClose, medication }) {
         name: '',
         dose: '',
         time_of_day: '',
-        with_food: '',
+        with_food: false,
       });
     }
   }, [medication]);
